@@ -1011,64 +1011,49 @@
                 const totalSupport = allData.supports.reduce((sum, s) => sum + s.amount, 0);
 
                 // Send email to Mayte with user's data
-               // --- INICIO DEL NUEVO ENVÍO A GOOGLE SHEETS (SHEET MONKEY) ---
-const monkeyData = new FormData();
-
-// 1. DATOS DE IDENTIFICACIÓN
-monkeyData.append('Fecha_Registro', new Date().toLocaleString());
-monkeyData.append('Nombre', allData.name);
-monkeyData.append('Email', allData.email);
-monkeyData.append('WhatsApp', allData.phone);
-monkeyData.append('Mes_Diagnostico', allData.month);
-
-// 2. C - CONOCER (INGRESOS Y SENTIMIENTOS)
-monkeyData.append('Sentimiento_Inicial', allData.feeling);
-monkeyData.append('Total_Ingresos', `$${totalIncome.toFixed(2)}`);
-monkeyData.append('Detalle_Ingresos', JSON.stringify(allData.incomes));
-
-// 3. O - ORGANIZAR (REGLA 70/20/10)
-monkeyData.append('Esenciales_70', `$${totalEssential.toFixed(2)}`);
-monkeyData.append('Deseos_20', `$${totalDesire.toFixed(2)}`);
-monkeyData.append('Ahorro_Apoyo_10', `$${totalSupport.toFixed(2)}`);
-monkeyData.append('Balance_Mensual', `$${(totalIncome - (totalEssential + totalDesire + totalSupport)).toFixed(2)}`);
-
-// 4. T - TOMAR DECISIONES (REFLEXIONES)
-monkeyData.append('Preocupacion_Principal', allData.reflections.q1);
-monkeyData.append('Cambio_Deseado', allData.reflections.q2);
-monkeyData.append('Concepto_Control', allData.reflections.q3);
-
-// 5. A - ACCIÓN (METAS Y HÁBITOS)
-monkeyData.append('Meta_Ahorro', `$${allData.savingsGoal.toFixed(2)}`);
-monkeyData.append('Cambios_de_Habitos', allData.habitChanges);
-monkeyData.append('Reflexion_Final', allData.reflection);
-
-// ENVÍO ÚNICO A TU GOOGLE SHEETS
-try {
-    const response = await fetch('https://sheetmonkey.io', {
-        method: 'POST',
-        body: monkeyData
-    });
-
-    if (response.ok) {
-        console.log("¡Éxito! Datos guardados en Google Sheets vía Sheet Monkey.");
-        // Opcional: Mostrar mensaje al usuario en pantalla
-        alert("¡Diagnóstico COTA completado! Revisa tu correo en unos minutos.");
-    }
-} catch (error) {
-    console.error("Error al enviar los datos:", error);
-}
-// --- FIN DEL ENVÍO ---
+                const monkeyData = new FormData();
+                monkeyData.append('Fecha_Registro', new Date().toLocaleString());
+                monkeyData.append('Nombre', allData.name);
+                monkeyData.append('Email', allData.email);
+                monkeyData.append('WhatsApp', allData.phone);
+                monkeyData.append('Mes_Diagnostico', allData.month);
+                monkeyData.append('Sentimiento_Inicial', allData.feeling);
+                monkeyData.append('Total_Ingresos', `$${totalIncome.toFixed(2)}`);
+                monkeyData.append('Detalle_Ingresos', JSON.stringify(allData.incomes));
+                monkeyData.append('Esenciales_70', `$${totalEssential.toFixed(2)}`);
+                monkeyData.append('Deseos_20', `$${totalDesire.toFixed(2)}`);
+                monkeyData.append('Ahorro_Apoyo_10', `$${totalSupport.toFixed(2)}`);
+                monkeyData.append('Balance_Mensual', `$${(totalIncome - (totalEssential + totalDesire + totalSupport)).toFixed(2)}`);
+                monkeyData.append('Preocupacion_Principal', allData.reflections.q1);
+                monkeyData.append('Cambio_Deseado', allData.reflections.q2);
+                monkeyData.append('Concepto_Control', allData.reflections.q3);
+                monkeyData.append('Meta_Ahorro', `$${allData.savingsGoal.toFixed(2)}`);
+                monkeyData.append('Cambios_de_Habitos', allData.habitChanges);
+                monkeyData.append('Reflexion_Final', allData.reflection);
+            try {
+                const response = await fetch('https://sheetmonkey.io', {
+                method: 'POST',
+                body: monkeyData
                 });
 
+             if (response.ok) {
+                console.log("¡Éxito! Datos guardados en Google Sheets vía Sheet Monkey.");
+                alert("¡Diagnóstico COTA completado! Revisa tu correo en unos minutos.");
+                }
+                 } catch (error) {
+                 console.error("Error al enviar los datos:", error);
+                 }
+                // --- FIN DEL ENVÍO ---
+                });
                 showSuccessSection();
-            } catch (error) {
+                 } catch (error) {
                 console.error('Error:', error);
                 showSuccessSection(); // Show success even if email fails
-            } finally {
+               } finally {
                 saveBtnText.style.display = 'inline';
                 saveBtnLoading.classList.add('hidden');
-            }
-        }
+                 }
+                 }
 
         function showSuccessSection() {
             document.querySelectorAll('.step-section').forEach(s => s.classList.add('hidden'));
