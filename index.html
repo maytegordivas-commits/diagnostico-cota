@@ -1069,33 +1069,6 @@
                 saveBtnLoading.classList.add('hidden');
             }
         }
-   // --- COPIA ESTE BLOQUE ADICIONAL PARA TU EXCEL ---
-try {
-    const sheetMonkeyData = new FormData();
-    sheetMonkeyData.append('Fecha', new Date().toLocaleString());
-    sheetMonkeyData.append('Nombre', allData.name);
-    sheetMonkeyData.append('Email', allData.email);
-    sheetMonkeyData.append('WhatsApp', allData.phone);
-    sheetMonkeyData.append('Mes', allData.month);
-    sheetMonkeyData.append('Total Ingresos', `$${totalIncome.toFixed(2)}`);
-    sheetMonkeyData.append('70_Esenciales', `$${totalEssential.toFixed(2)}`);
-    sheetMonkeyData.append('20_Deseos', `$${totalDesire.toFixed(2)}`);
-    sheetMonkeyData.append('10_Ahorro_Apoyo', `$${totalSupport.toFixed(2)}`);
-    sheetMonkeyData.append('Meta_Ahorro', `$${allData.savingsGoal.toFixed(2)}`);
-    sheetMonkeyData.append('Balance_Final', `$${(totalIncome - (totalEssential + totalDesire + totalSupport)).toFixed(2)}`);
-    sheetMonkeyData.append('Reflexion', allData.reflection);
-
-    // Envío a Sheet Monkey (Gratis)
-    fetch('https://sheetmonkey.io', {
-        method: 'POST',
-        body: sheetMonkeyData,
-        mode: 'no-cors'
-    });
-    console.log("Copia enviada a Google Sheets.");
-} catch (e) {
-    console.log("Error en copia Sheets:", e);
-}
-// --- TERMINA BLOQUE ADICIONAL ---
 
         function showSuccessSection() {
             document.querySelectorAll('.step-section').forEach(s => s.classList.add('hidden'));
