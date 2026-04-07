@@ -1035,7 +1035,6 @@
                 method: 'POST',
                 body: monkeyData
                 });
-
              if (response.ok) {
                 console.log("¡Éxito! Datos guardados en Google Sheets vía Sheet Monkey.");
                 alert("¡Diagnóstico COTA completado! Revisa tu correo en unos minutos.");
@@ -1043,19 +1042,7 @@
                  } catch (error) {
                  console.error("Error al enviar los datos:", error);
                  }
-                // --- FIN DEL ENVÍO ---
-                });
-                showSuccessSection();
-                 } catch (error) {
-                console.error('Error:', error);
-                showSuccessSection(); // Show success even if email fails
-               } finally {
-                saveBtnText.style.display = 'inline';
-                saveBtnLoading.classList.add('hidden');
-                 }
-                 }
-
-        function showSuccessSection() {
+            function showSuccessSection() {
             document.querySelectorAll('.step-section').forEach(s => s.classList.add('hidden'));
             document.getElementById('successSection').classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
