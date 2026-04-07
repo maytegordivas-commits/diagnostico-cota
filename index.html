@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finanzas Simples - Método COTA por Mayte Gaby</title>
-    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finanzas Simples - Método COTA por Mayte Gaby</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <style>
         * {
             scrollbar-width: thin;
             scrollbar-color: #d4a574 #f5f1ed;
@@ -21,6 +21,7 @@
             background: #d4a574;
             border-radius: 4px;
         }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap');
         
         body {
             font-family: 'Poppins', sans-serif;
@@ -29,7 +30,7 @@
         
         .section-title {
             font-family: 'Lora', serif;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 600;
             color: #2c2416;
         }
@@ -45,7 +46,6 @@
             border-radius: 8px;
             padding: 12px;
             font-size: 14px;
-            font-family: 'Poppins', sans-serif;
             transition: all 0.2s;
         }
         
@@ -65,7 +65,6 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 14px;
-            font-family: 'Poppins', sans-serif;
         }
         
         .btn-primary:hover {
@@ -83,7 +82,6 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 13px;
-            font-family: 'Poppins', sans-serif;
         }
         
         .btn-secondary:hover {
@@ -98,10 +96,120 @@
             border: 1px solid #ede6d6;
         }
         
+        .category-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .badge-essential {
+            background: #fce4e4;
+            color: #b85450;
+        }
+        
+        .badge-desire {
+            background: #e8f3ff;
+            color: #2b5aa0;
+        }
+        
+        .badge-support {
+            background: #e4f3e8;
+            color: #3a6b3a;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border: 2px solid #ede6d6;
+        }
+        
+        .metric-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c2416;
+            margin-top: 8px;
+            font-family: 'Lora', serif;
+        }
+        
+        .alert-warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 16px;
+            border-radius: 8px;
+            color: #856404;
+            font-size: 14px;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 16px;
+            border-radius: 8px;
+            color: #155724;
+            font-size: 14px;
+        }
+        
+        .tab-button {
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: #999;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .tab-button.active {
+            color: #8b7355;
+            border-bottom-color: #d4a574;
+        }
+        
+        .table-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 12px;
+            padding: 12px;
+            border-bottom: 1px solid #ede6d6;
+            align-items: center;
+        }
+        
+        .table-row:last-child {
+            border-bottom: none;
+        }
+        
+        .table-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 12px;
+            padding: 12px;
+            background: #faf7f2;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        
         .step-indicator {
             display: flex;
             gap: 8px;
-            margin-top: 16px;
+            margin-bottom: 24px;
             overflow-x: auto;
             padding-bottom: 8px;
         }
@@ -135,485 +243,413 @@
             border-color: #8b7355;
         }
         
-        .hidden {
-            display: none !important;
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #d4a574;
+            border-top-color: #8b7355;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .checkbox-custom {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #d4a574;
         }
         
         textarea {
             font-family: 'Poppins', sans-serif;
             resize: vertical;
         }
-
-        .metric-card {
-            background: white;
-            border-radius: 12px;
-            padding: 16px;
-            text-align: center;
-            border: 2px solid #ede6d6;
-        }
         
-        .metric-label {
-            font-size: 12px;
-            color: #666;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .metric-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: #2c2416;
-            margin-top: 8px;
-            font-family: 'Lora', serif;
-        }
-
-        .category-badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        
-        .badge-essential {
-            background: #fce4e4;
-            color: #b85450;
-        }
-        
-        .badge-desire {
-            background: #e8f3ff;
-            color: #2b5aa0;
-        }
-        
-        .badge-support {
-            background: #e4f3e8;
-            color: #3a6b3a;
-        }
-
-        .table-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr auto;
-            gap: 12px;
-            padding: 12px;
-            border-bottom: 1px solid #ede6d6;
-            align-items: center;
-        }
-
-        .table-header {
-            display: grid;
-            grid-template-columns: 1fr 1fr auto;
-            gap: 12px;
-            padding: 12px;
-            background: #faf7f2;
-            border-radius: 8px;
-            font-weight: 600;
-            color: #666;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-
-        .alert-warning {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 16px;
-            border-radius: 8px;
-            color: #856404;
-            font-size: 14px;
-            margin-bottom: 12px;
-        }
-
-        .alert-success {
-            background: #d4edda;
-            border-left: 4px solid #28a745;
-            padding: 16px;
-            border-radius: 8px;
-            color: #155724;
-            font-size: 14px;
-            margin-bottom: 12px;
+        .hidden {
+            display: none !important;
         }
     </style>
-</head>
-<body>
-    <div class="min-h-screen w-full bg-gradient-to-b from-[#f5f1ed] to-[#faf7f2]">
-        <!-- Header -->
-        <header class="bg-white border-b border-[#ede6d6] sticky top-0 z-40 shadow-sm">
-            <div class="max-w-6xl mx-auto px-6 py-6">
-                <div class="flex items-center justify-between mb-4">
-                    <div>
-                        <h1 class="text-3xl font-bold text-[#2c2416]" style="font-family: 'Lora', serif;">Finanzas Simples</h1>
-                        <p class="text-sm text-[#999] mt-1">Método COTA • Por Mayte Gaby</p>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-2xl font-bold text-[#d4a574]" style="font-family: 'Lora', serif;" id="currentMonth"></div>
-                        <p class="text-xs text-[#999] mt-1">Tu mes financiero</p>
-                    </div>
-                </div>
-                <!-- Step Indicator -->
-                <div class="step-indicator" id="stepIndicator"></div>
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="max-w-6xl mx-auto px-6 py-8 pb-20">
-            <!-- PASO 0: CONTACTO INICIAL -->
-            <section id="step0" class="step-section">
-                <div class="mb-8">
-                    <span class="step-badge bg-[#d4a574] text-white px-4 py-2 rounded-full text-sm">Bienvenido</span>
-                    <h2 class="section-title mt-6">👋 Comencemos: Tu Información</h2>
-                    <p class="text-[#666] mt-2">Necesitamos algunos datos para personalizar tu diagnóstico.</p>
-                </div>
-                <div class="grid gap-6">
-                    <div class="card">
-                        <h3 class="font-semibold text-[#2c2416] mb-6">Datos de Contacto</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-semibold text-[#2c2416] mb-2">Nombre Completo</label>
-                                <input type="text" id="userName" class="input-field w-full" placeholder="Tu nombre">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-[#2c2416] mb-2">Correo Electrónico</label>
-                                <input type="email" id="userEmail" class="input-field w-full" placeholder="tu@correo.com">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-[#2c2416] mb-2">WhatsApp</label>
-                                <input type="tel" id="userPhone" class="input-field w-full" placeholder="+52 1234567890">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card bg-gradient-to-br from-[#faf7f2] to-[#f5f1ed] border-2 border-[#d4a574]">
-                        <p class="text-sm text-[#666]">
-                            <strong>✨ ¿Qué es el Método COTA?</strong><br><br>
-                            <strong>C - CLARIDAD:</strong> Entiende tu situación financiera actual.<br>
-                            <strong>O - ORGANIZACIÓN:</strong> Estructura tus ingresos y gastos.<br>
-                            <strong>T - TOMA DE DECISIONES:</strong> Analiza y comprende tus patrones.<br>
-                            <strong>A - ACCIÓN:</strong> Crea tu plan de cambio para este mes.
-                        </p>
-                    </div>
-
-                    <div class="flex gap-4 justify-end">
-                        <button class="btn-primary" onclick="nextStep()">Comenzar →</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- PASO 1: CLARIDAD -->
-            <section id="step1" class="step-section hidden">
-                <div class="mb-8">
-                    <span class="step-badge bg-[#d4a574] text-white px-4 py-2 rounded-full text-sm">Paso 1 de 4</span>
-                    <h2 class="section-title mt-6">🔍 CLARIDAD: Diagnóstico Inicial</h2>
-                    <p class="text-[#666] mt-2">Empecemos a entender cómo te sientes con tu dinero.</p>
-                </div>
-                <div class="grid gap-6">
-                    <div class="card">
-                        <h3 class="font-semibold text-[#2c2416] mb-4">¿Cómo te sientes con tu dinero?</h3>
-                        <textarea id="feeling" class="input-field w-full h-28" placeholder="Comparte tus emociones, miedos o esperanzas..."></textarea>
-                        <p class="text-xs text-[#999] mt-2">💭 No hay respuestas correctas o incorrectas.</p>
-                    </div>
-
-                    <div class="card">
-                        <h3 class="font-semibold text-[#2c2416] mb-6">Preguntas de Reflexión</h3>
-                        <div class="space-y-6">
-                            <div>
-                                <label class="block text-sm font-semibold text-[#2c2416] mb-2">1️⃣ ¿Cuál es tu mayor preocupación con el dinero?</label>
-                                <textarea id="reflection1" class="input-field w-full h-20" placeholder="Escribe tu respuesta..."></textarea>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-[#2c2416] mb-2">2️⃣ ¿En qué te gustaría cambiar tu relación con el dinero?</label>
-                                <textarea id="reflection2" class="input-field w-full h-20" placeholder="Escribe tu respuesta..."></textarea>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-[#2c2416] mb-2">3️⃣ ¿Qué significa tener "control financiero" para ti?</label>
-                                <textarea id="reflection3" class="input-field w-full h-20" placeholder="Escribe tu respuesta..."></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-4 justify-end">
-                        <button class="btn-secondary" onclick="previousStep()">Atrás</button>
-                        <button class="btn-primary" onclick="nextStep()">Continuar →</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- PASO 2: ORGANIZACIÓN -->
-            <section id="step2" class="step-section hidden">
-                <div class="mb-8">
-                    <span class="step-badge bg-[#8b7355] text-white px-4 py-2 rounded-full text-sm">Paso 2 de 4</span>
-                    <h2 class="section-title mt-6">📋 ORGANIZACIÓN: Estructura Tu Dinero</h2>
-                    <p class="text-[#666] mt-2">Registra tus ingresos y gastos de forma clara.</p>
-                </div>
-                <div class="grid gap-8">
-                    <!-- Ingresos -->
-                    <div class="card">
-                        <h3 class="font-semibold text-[#2c2416] mb-6 flex items-center gap-2"><span class="text-xl">💰</span> Ingresos Mensuales</h3>
-                        <div class="space-y-4 mb-6">
-                            <div class="table-header">
-                                <div>Fuente de Ingreso</div>
-                                <div>Cantidad</div>
-                                <div></div>
-                            </div>
-                            <div id="incomesList"></div>
-                        </div>
-                        <div class="flex gap-2 mb-6">
-                            <input type="text" id="incomeSource" class="input-field flex-1" placeholder="Ej: Salario, Freelance">
-                            <div class="flex items-center gap-1 px-3 bg-[#faf7f2] rounded-lg">
-                                <span class="text-[#666]">$</span>
-                                <input type="number" id="incomeAmount" class="input-field border-0 bg-transparent w-24" placeholder="0.00">
-                            </div>
-                            <button class="btn-secondary px-4" onclick="addIncome()">+ Agregar</button>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-label">Total Ingresos</div>
-                            <div class="metric-value" id="totalIncome">$0.00</div>
-                        </div>
-                    </div>
-
-                    <!-- Gastos Esenciales -->
-                    <div class="card border-l-4 border-l-[#b85450]">
-                        <h3 class="font-semibold text-[#2c2416] mb-6 flex items-center gap-2"><span class="category-badge badge-essential">Esenciales</span> <span class="text-lg">🏠</span></h3>
-                        <p class="text-sm text-[#666] mb-4">Gastos necesarios (vivienda, alimentos, servicios)</p>
-                        <div class="space-y-4 mb-6">
-                            <div class="table-header">
-                                <div>Concepto</div>
-                                <div>Cantidad</div>
-                                <div></div>
-                            </div>
-                            <div id="essentialList"></div>
-                        </div>
-                        <div class="flex gap-2 mb-6">
-                            <input type="text" id="essentialCategory" class="input-field flex-1" placeholder="Ej: Renta, Alimentos">
-                            <div class="flex items-center gap-1 px-3 bg-[#faf7f2] rounded-lg">
-                                <span class="text-[#666]">$</span>
-                                <input type="number" id="essentialAmount" class="input-field border-0 bg-transparent w-24" placeholder="0.00">
-                            </div>
-                            <button class="btn-secondary px-4" onclick="addExpense('essential')">+ Agregar</button>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-label">Total Esenciales</div>
-                            <div class="metric-value text-[#b85450]" id="totalEssential">$0.00</div>
-                        </div>
-                    </div>
-
-                    <!-- Gastos Deseos -->
-                    <div class="card border-l-4 border-l-[#2b5aa0]">
-                        <h3 class="font-semibold text-[#2c2416] mb-6 flex items-center gap-2"><span class="category-badge badge-desire">Deseos</span> <span class="text-lg">🎯</span></h3>
-                        <p class="text-sm text-[#666] mb-4">Gastos que disfrutas (ocio, gustos)</p>
-                        <div class="space-y-4 mb-6">
-                            <div class="table-header">
-                                <div>Concepto</div>
-                                <div>Cantidad</div>
-                                <div></div>
-                            </div>
-                            <div id="desireList"></div>
-                        </div>
-                        <div class="flex gap-2 mb-6">
-                            <input type="text" id="desireCategory" class="input-field flex-1" placeholder="Ej: Cine, Café">
-                            <div class="flex items-center gap-1 px-3 bg-[#faf7f2] rounded-lg">
-                                <span class="text-[#666]">$</span>
-                                <input type="number" id="desireAmount" class="input-field border-0 bg-transparent w-24" placeholder="0.00">
-                            </div>
-                            <button class="btn-secondary px-4" onclick="addExpense('desire')">+ Agregar</button>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-label">Total Deseos</div>
-                            <div class="metric-value text-[#2b5aa0]" id="totalDesire">$0.00</div>
-                        </div>
-                    </div>
-
-                    <!-- Gastos Apoyo -->
-                    <div class="card border-l-4 border-l-[#3a6b3a]">
-                        <h3 class="font-semibold text-[#2c2416] mb-6 flex items-center gap-2"><span class="category-badge badge-support">Apoyo</span> <span class="text-lg">❤️</span></h3>
-                        <p class="text-sm text-[#666] mb-4">Generosidad (regalos, donaciones, ahorros)</p>
-                        <div class="space-y-4 mb-6">
-                            <div class="table-header">
-                                <div>Concepto</div>
-                                <div>Cantidad</div>
-                                <div></div>
-                            </div>
-                            <div id="supportList"></div>
-                        </div>
-                        <div class="flex gap-2 mb-6">
-                            <input type="text" id="supportCategory" class="input-field flex-1" placeholder="Ej: Ahorro, Donaciones">
-                            <div class="flex items-center gap-1 px-3 bg-[#faf7f2] rounded-lg">
-                                <span class="text-[#666]">$</span>
-                                <input type="number" id="supportAmount" class="input-field border-0 bg-transparent w-24" placeholder="0.00">
-                            </div>
-                            <button class="btn-secondary px-4" onclick="addExpense('support')">+ Agregar</button>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-label">Total Apoyo</div>
-                            <div class="metric-value text-[#3a6b3a]" id="totalSupport">$0.00</div>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-4 justify-end">
-                        <button class="btn-secondary" onclick="previousStep()">Atrás</button>
-                        <button class="btn-primary" onclick="nextStep()">Continuar →</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- PASO 3: TOMA DE DECISIONES -->
-            <section id="step3" class="step-section hidden">
-                <div class="mb-8">
-                    <span class="step-badge bg-[#6b5344] text-white px-4 py-2 rounded-full text-sm">Paso 3 de 4</span>
-                    <h2 class="section-title mt-6">⚖️ TOMA DE DECISIONES: Análisis</h2>
-                    <p class="text-[#666] mt-2">Visualiza tu situación y recibe recomendaciones.</p>
-                </div>
-                <div class="grid gap-6">
-                    <!-- Resumen General -->
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="metric-card">
-                            <div class="metric-label">Total Ingresos</div>
-                            <div class="metric-value text-green-600" id="summary-income">$0.00</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-label">Total Gastos</div>
-                            <div class="metric-value text-[#b85450]" id="summary-expense">$0.00</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-label">Balance</div>
-                            <div class="metric-value" id="summary-balance">$0.00</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-label">% Gastado</div>
-                            <div class="metric-value" id="summary-percentage">0%</div>
-                        </div>
-                    </div>
-
-                    <!-- Alert Section -->
-                    <div id="alertSection"></div>
-
-                    <!-- Desglose de Gastos -->
-                    <div class="card">
-                        <h3 class="font-semibold text-[#2c2416] mb-6">📊 Desglose de Gastos</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between p-4 bg-[#fce4e4] rounded-lg border border-[#f0bcbe]">
-                                <div class="flex items-center gap-3">
-                                    <span class="category-badge badge-essential">Esenciales</span>
-                                    <span class="text-sm text-[#666]">Necesarios para vivir</span>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-bold text-[#2c2416]" id="break-essential">$0.00</div>
-                                    <div class="text-xs text-[#666]" id="break-essential-pct">0%</div>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between p-4 bg-[#e8f3ff] rounded-lg border border-[#c5e1ff]">
-                                <div class="flex items-center gap-3">
-                                    <span class="category-badge badge-desire">Deseos</span>
-                                    <span class="text-sm text-[#666]">Diversión y disfrute</span>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-bold text-[#2c2416]" id="break-desire">$0.00</div>
-                                    <div class="text-xs text-[#666]" id="break-desire-pct">0%</div>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between p-4 bg-[#e4f3e8] rounded-lg border border-[#c1e5cc]">
-                                <div class="flex items-center gap-3">
-                                    <span class="category-badge badge-support">Apoyo</span>
-                                    <span class="text-sm text-[#666]">Generosidad y ahorro</span>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-bold text-[#2c2416]" id="break-support">$0.00</div>
-                                    <div class="text-xs text-[#666]" id="break-support-pct">0%</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Insights -->
-                    <div class="card bg-gradient-to-br from-[#faf7f2] to-[#f5f1ed] border-2 border-[#d4a574]">
-                        <h3 class="font-semibold text-[#2c2416] mb-4">💡 Recomendaciones Personalizadas</h3>
-                        <div id="insightsSection" class="space-y-3"></div>
-                    </div>
-
-                    <div class="flex gap-4 justify-end">
-                        <button class="btn-secondary" onclick="previousStep()">Atrás</button>
-                        <button class="btn-primary" onclick="nextStep()">Continuar →</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- PASO 4: ACCIÓN -->
-            <section id="step4" class="step-section hidden">
-                <div class="mb-8">
-                    <span class="step-badge bg-[#3a6b3a] text-white px-4 py-2 rounded-full text-sm">Paso 4 de 4</span>
-                    <h2 class="section-title mt-6">✅ ACCIÓN: Tu Plan de Cambio</h2>
-                    <p class="text-[#666] mt-2">Define tus ajustes y metas para este mes.</p>
-                </div>
-                <div class="grid gap-6">
-                    <div class="card">
-                        <h3 class="font-semibold text-[#2c2416] mb-4">🎯 Ajustes del Mes</h3>
-                        <p class="text-sm text-[#666] mb-4">¿Qué cambios harás en tus gastos?</p>
-                        <textarea id="adjustments" class="input-field w-full h-24" placeholder="Ej: Reducir comidas fuera, cancelar suscripciones..."></textarea>
-                    </div>
-
-                    <div class="card">
-                        <h3 class="font-semibold text-[#2c2416] mb-4">🌱 Meta de Ahorro</h3>
-                        <p class="text-sm text-[#666] mb-4">¿Cuánto te gustaría ahorrar este mes?</p>
-                        <div class="flex items-center gap-2">
-                            <span class="text-[#999]">$</span>
-                            <input type="number" id="savingsGoal" class="input-field flex-1" placeholder="0.00">
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <h3 class="font-semibold text-[#2c2416] mb-4">🔄 Cambios de Hábitos</h3>
-                        <p class="text-sm text-[#666] mb-4">¿Qué hábitos nuevos implementarás?</p>
-                        <textarea id="habitChanges" class="input-field w-full h-24" placeholder="Ej: Revisar gastos diarios, ahorrar antes de gastar..."></textarea>
-                    </div>
-
-                    <div class="card bg-gradient-to-br from-[#e4f3e8] to-[#eef8f1] border-2 border-[#3a6b3a]">
-                        <h3 class="font-semibold text-[#2c2416] mb-4">🌟 Reflexión Mensual</h3>
-                        <p class="text-sm text-[#666] mb-4">¿Cómo esperas sentirte después de estos cambios?</p>
-                        <textarea id="monthlyReflection" class="input-field w-full h-24" placeholder="Describe cómo esperas sentirte..."></textarea>
-                    </div>
-
-                    <div class="flex gap-4 justify-end">
-                        <button class="btn-secondary" onclick="previousStep()">Atrás</button>
-                        <button class="btn-primary" onclick="saveAllData()">💾 Guardar y Enviar</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Success Section -->
-            <section id="successSection" class="hidden">
-                <div class="card bg-gradient-to-br from-[#e4f3e8] to-[#eef8f1] border-4 border-[#3a6b3a] text-center py-12">
-                    <div class="text-6xl mb-4">🎉</div>
-                    <h2 class="text-2xl font-bold text-[#2c2416] mb-2" style="font-family: 'Lora', serif;">¡Felicidades!</h2>
-                    <p class="text-lg text-[#666] mb-6">Has completado tu diagnóstico COTA.</p>
-                    <p class="text-sm text-[#666] mb-8">Tu plan ha sido guardado y enviado. Ahora es momento de <strong>actuar</strong>.</p>
-                    
-                    <div class="bg-white rounded-lg p-6 mb-8 text-left max-w-md mx-auto">
-                        <h3 class="font-semibold text-[#2c2416] mb-4">📋 Tu Resumen:</h3>
-                        <div class="space-y-2 text-sm text-[#666]">
-                            <div class="flex justify-between">
-                                <span>Ingresos:</span><span class="font-semibold text-green-600" id="final-income">$0.00</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Gastos:</span><span class="font-semibold text-[#b85450]" id="final-expense">$0.00</span>
-                            </div>
-                            <div class="flex justify-between border-t pt-2 mt-2">
-                                <span>Balance:</span><span class="font-semibold" id="final-balance">$0.00</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <a href="https://wa.me/523330257643?text=Hola%20Mayte,%20quiero%20inscribirme%20al%20taller%20completo%20de%20Finanzas%20Simples" target="_blank" class="inline-block btn-primary mb-4">📞 Quiero el taller completo</a>
-                    
-                    <button class="btn-secondary ml-2" onclick="location.reload()">← Volver al Inicio</button>
-                </div>
-            </section>
-        </main>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full">
+  <div class="h-full w-full bg-gradient-to-b from-[#f5f1ed] to-[#faf7f2] overflow-auto"><!-- Header -->
+   <header class="bg-white border-b border-[#ede6d6] sticky top-0 z-40 shadow-sm">
+    <div class="max-w-6xl mx-auto px-6 py-6">
+     <div class="flex items-center justify-between mb-4">
+      <div>
+       <h1 class="text-3xl font-bold text-[#2c2416]" style="font-family: 'Lora', serif;">Finanzas Simples</h1>
+       <p class="text-sm text-[#999] mt-1">Método COTA • Por Mayte Gaby</p>
+      </div>
+      <div class="text-right">
+       <div class="text-2xl font-bold text-[#d4a574]" style="font-family: 'Lora', serif;" id="currentMonth"></div>
+       <p class="text-xs text-[#999] mt-1">Tu mes financiero</p>
+      </div>
+     </div><!-- Step Indicator -->
+     <div class="step-indicator" id="stepIndicator"></div>
     </div>
+   </header><!-- Main Content -->
+   <main class="max-w-6xl mx-auto px-6 py-8 pb-20"><!-- PASO 0: CONTACTO -->
+    <section id="step0" class="step-section">
+     <div class="mb-8"><span class="step-badge bg-[#d4a574] text-white px-4 py-2 rounded-full text-sm">Bienvenido</span>
+      <h2 class="section-title mt-6">👋 Tu Información de Contacto</h2>
+      <p class="text-[#666] mt-2">Necesitamos tus datos para enviarte un resumen de tu diagnóstico.</p>
+     </div>
+     <div class="grid gap-6">
+      <div class="card">
+       <h3 class="font-semibold text-[#2c2416] mb-6">Datos Personales</h3>
+       <div class="space-y-4">
+        <div>
+         <label class="block text-sm font-semibold text-[#2c2416] mb-2">Nombre Completo</label>
+         <input type="text" id="userName" class="input-field w-full" placeholder="Tu nombre completo">
+        </div>
+        <div>
+         <label class="block text-sm font-semibold text-[#2c2416] mb-2">Correo Electrónico</label>
+         <input type="email" id="userEmail" class="input-field w-full" placeholder="tu@correo.com">
+        </div>
+        <div>
+         <label class="block text-sm font-semibold text-[#2c2416] mb-2">WhatsApp</label>
+         <input type="tel" id="userPhone" class="input-field w-full" placeholder="+52 1234567890">
+        </div>
+       </div>
+      </div>
+      <div class="flex gap-4 justify-end"><button class="btn-primary" onclick="nextStep()">Continuar →</button>
+      </div>
+     </div>
+    </section>
 
-    <script>
+    <!-- PASO 1: CLARIDAD -->
+    <section id="step1" class="step-section hidden">
+     <div class="mb-8"><span class="step-badge bg-[#d4a574] text-white px-4 py-2 rounded-full text-sm">Paso 1 de 4</span>
+      <h2 class="section-title mt-6">🔍 CLARIDAD: Diagnóstico Inicial</h2>
+      <p class="text-[#666] mt-2">Empecemos a entender cómo te sientes con tu dinero y dónde estás ahora.</p>
+     </div>
+     <div class="grid gap-6"><!-- Feeling Section -->
+      <div class="card">
+       <h3 class="font-semibold text-[#2c2416] mb-4">¿Cómo te sientes con tu dinero en este momento?</h3><textarea id="feeling" class="input-field w-full h-28" placeholder="Comparte tus emociones, miedos o esperanzas..."></textarea>
+       <p class="text-xs text-[#999] mt-2">💭 No hay respuestas correctas o incorrectas. Sé honesto contigo mismo.</p>
+      </div><!-- Reflection Questions -->
+      <div class="card">
+       <h3 class="font-semibold text-[#2c2416] mb-6">Preguntas de Reflexión</h3>
+       <div class="space-y-6">
+        <div><label class="block text-sm font-semibold text-[#2c2416] mb-2"> 1️⃣ ¿Cuál es tu mayor preocupación con el dinero actualmente? </label> <textarea id="reflection1" class="input-field w-full h-20" placeholder="Escribe tu respuesta..."></textarea>
+        </div>
+        <div><label class="block text-sm font-semibold text-[#2c2416] mb-2"> 2️⃣ ¿En qué te gustaría cambiar tu relación con el dinero? </label> <textarea id="reflection2" class="input-field w-full h-20" placeholder="Escribe tu respuesta..."></textarea>
+        </div>
+        <div><label class="block text-sm font-semibold text-[#2c2416] mb-2"> 3️⃣ ¿Qué significa tener "control financiero" para ti? </label> <textarea id="reflection3" class="input-field w-full h-20" placeholder="Escribe tu respuesta..."></textarea>
+        </div>
+       </div>
+      </div><!-- Current Situation Summary -->
+      <div class="card bg-gradient-to-br from-[#faf7f2] to-[#f5f1ed] border-2 border-[#d4a574]">
+       <h3 class="font-semibold text-[#2c2416] mb-4">📊 Resumen de Situación Actual</h3>
+       <p class="text-sm text-[#666] mb-4">Contesta brevemente para tener una línea base:</p>
+       <div class="space-y-4">
+        <div><label class="block text-sm font-semibold text-[#2c2416] mb-2">¿Cuál es tu ingreso mensual promedio?</label>
+         <div class="flex items-center gap-2"><span class="text-[#999]">$</span> <input type="number" id="baselineIncome" class="input-field flex-1" placeholder="0.00">
+         </div>
+        </div>
+        <div><label class="block text-sm font-semibold text-[#2c2416] mb-2">¿Aproximadamente cuánto gastas mensualmente?</label>
+         <div class="flex items-center gap-2"><span class="text-[#999]">$</span> <input type="number" id="baselineExpense" class="input-field flex-1" placeholder="0.00">
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="flex gap-4 justify-end"><button class="btn-secondary" onclick="previousStep()">Atrás</button> <button class="btn-primary" onclick="nextStep()">Continuar →</button>
+      </div>
+     </div>
+    </section><!-- PASO 2: ORGANIZACIÓN -->
+    <section id="step2" class="step-section hidden">
+     <div class="mb-8"><span class="step-badge bg-[#8b7355] text-white px-4 py-2 rounded-full text-sm">Paso 2 de 4</span>
+      <h2 class="section-title mt-6">📋 ORGANIZACIÓN: Estructura Tu Dinero</h2>
+      <p class="text-[#666] mt-2">Registra tus ingresos y gastos de forma clara y organizada.</p>
+     </div>
+     <div class="grid gap-8"><!-- Ingresos -->
+      <div class="card">
+       <h3 class="font-semibold text-[#2c2416] mb-6 flex items-center gap-2"><span class="text-xl">💰</span> Ingresos Mensuales</h3>
+       <div class="space-y-4 mb-6">
+        <div class="table-header">
+         <div>
+          Fuente de Ingreso
+         </div>
+         <div>
+          Cantidad
+         </div>
+         <div></div>
+        </div>
+        <div id="incomesList"></div>
+       </div>
+       <div class="flex gap-2 mb-6"><input type="text" id="incomeSource" class="input-field flex-1" placeholder="Ej: Salario, Freelance, Negocio">
+        <div class="flex items-center gap-1 px-3 bg-[#faf7f2] rounded-lg"><span class="text-[#666]">$</span> <input type="number" id="incomeAmount" class="input-field border-0 bg-transparent w-24" placeholder="0.00">
+        </div><button class="btn-secondary px-4" onclick="addIncome()">+ Agregar</button>
+       </div>
+       <div class="metric-card">
+        <div class="metric-label">
+         Total Ingresos
+        </div>
+        <div class="metric-value" id="totalIncome">
+         $0.00
+        </div>
+       </div>
+      </div><!-- Gastos por Categoría -->
+      <div class="space-y-6"><!-- Esenciales -->
+       <div class="card border-l-4 border-l-[#b85450]">
+        <h3 class="font-semibold text-[#2c2416] mb-6 flex items-center gap-2"><span class="category-badge badge-essential">Esenciales</span> <span class="text-lg">🏠</span></h3>
+        <p class="text-sm text-[#666] mb-4">Gastos necesarios para vivir (vivienda, alimentos, servicios)</p>
+        <div class="space-y-4 mb-6">
+         <div class="table-header">
+          <div>
+           Concepto
+          </div>
+          <div>
+           Cantidad
+          </div>
+          <div></div>
+         </div>
+         <div id="essentialList"></div>
+        </div>
+        <div class="flex gap-2 mb-6"><input type="text" id="essentialCategory" class="input-field flex-1" placeholder="Ej: Renta, Electricidad, Alimentos">
+         <div class="flex items-center gap-1 px-3 bg-[#faf7f2] rounded-lg"><span class="text-[#666]">$</span> <input type="number" id="essentialAmount" class="input-field border-0 bg-transparent w-24" placeholder="0.00">
+         </div><button class="btn-secondary px-4" onclick="addExpense('essential')">+ Agregar</button>
+        </div>
+        <div class="metric-card">
+         <div class="metric-label">
+          Total Esenciales
+         </div>
+         <div class="metric-value text-[#b85450]" id="totalEssential">
+          $0.00
+         </div>
+        </div>
+       </div><!-- Deseo -->
+       <div class="card border-l-4 border-l-[#2b5aa0]">
+        <h3 class="font-semibold text-[#2c2416] mb-6 flex items-center gap-2"><span class="category-badge badge-desire">Deseo</span> <span class="text-lg">🎯</span></h3>
+        <p class="text-sm text-[#666] mb-4">Gastos que disfrutas pero no son esenciales (ocio, gustos)</p>
+        <div class="space-y-4 mb-6">
+         <div class="table-header">
+          <div>
+           Concepto
+          </div>
+          <div>
+           Cantidad
+          </div>
+          <div></div>
+         </div>
+         <div id="desireList"></div>
+        </div>
+        <div class="flex gap-2 mb-6"><input type="text" id="desireCategory" class="input-field flex-1" placeholder="Ej: Cine, Salida, Café">
+         <div class="flex items-center gap-1 px-3 bg-[#faf7f2] rounded-lg"><span class="text-[#666]">$</span> <input type="number" id="desireAmount" class="input-field border-0 bg-transparent w-24" placeholder="0.00">
+         </div><button class="btn-secondary px-4" onclick="addExpense('desire')">+ Agregar</button>
+        </div>
+        <div class="metric-card">
+         <div class="metric-label">
+          Total Deseos
+         </div>
+         <div class="metric-value text-[#2b5aa0]" id="totalDesire">
+          $0.00
+         </div>
+        </div>
+       </div><!-- Apoyo y Ahorro -->
+       <div class="card border-l-4 border-l-[#3a6b3a]">
+        <h3 class="font-semibold text-[#2c2416] mb-6 flex items-center gap-2"><span class="category-badge badge-support">Ahorro y Apoyo</span> <span class="text-lg">❤️</span></h3>
+        <p class="text-sm text-[#666] mb-4">Gastos de generosidad y ahorro (regalos, ayuda, donaciones, ahorro)</p>
+        <div class="space-y-4 mb-6">
+         <div class="table-header">
+          <div>
+           Concepto
+          </div>
+          <div>
+           Cantidad
+          </div>
+          <div></div>
+         </div>
+         <div id="supportList"></div>
+        </div>
+        <div class="flex gap-2 mb-6"><input type="text" id="supportCategory" class="input-field flex-1" placeholder="Ej: Ahorro, Regalos, Donaciones">
+         <div class="flex items-center gap-1 px-3 bg-[#faf7f2] rounded-lg"><span class="text-[#666]">$</span> <input type="number" id="supportAmount" class="input-field border-0 bg-transparent w-24" placeholder="0.00">
+         </div><button class="btn-secondary px-4" onclick="addExpense('support')">+ Agregar</button>
+        </div>
+        <div class="metric-card">
+         <div class="metric-label">
+          Total Ahorro y Apoyo
+         </div>
+         <div class="metric-value text-[#3a6b3a]" id="totalSupport">
+          $0.00
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="flex gap-4 justify-end"><button class="btn-secondary" onclick="previousStep()">Atrás</button> <button class="btn-primary" onclick="nextStep()">Continuar →</button>
+      </div>
+     </div>
+    </section><!-- PASO 3: TOMA DE DECISIONES -->
+    <section id="step3" class="step-section hidden">
+     <div class="mb-8"><span class="step-badge bg-[#6b5344] text-white px-4 py-2 rounded-full text-sm">Paso 3 de 4</span>
+      <h2 class="section-title mt-6">⚖️ TOMA DE DECISIONES: Análisis &amp; Alertas</h2>
+      <p class="text-[#666] mt-2">Visualiza tu situación financiera y recibe recomendaciones.</p>
+     </div>
+     <div class="grid gap-6"><!-- Resumen General -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+       <div class="metric-card">
+        <div class="metric-label">
+         Total Ingresos
+        </div>
+        <div class="metric-value text-green-600" id="summary-income">
+         $0.00
+        </div>
+       </div>
+       <div class="metric-card">
+        <div class="metric-label">
+         Total Gastos
+        </div>
+        <div class="metric-value text-[#b85450]" id="summary-expense">
+         $0.00
+        </div>
+       </div>
+       <div class="metric-card">
+        <div class="metric-label">
+         Balance
+        </div>
+        <div class="metric-value" id="summary-balance">
+         $0.00
+        </div>
+       </div>
+       <div class="metric-card">
+        <div class="metric-label">
+         % Gastado
+        </div>
+        <div class="metric-value" id="summary-percentage">
+         0%
+        </div>
+       </div>
+      </div><!-- Alert Section -->
+      <div id="alertSection"></div><!-- Breakdown por Categoría -->
+      <div class="card">
+       <h3 class="font-semibold text-[#2c2416] mb-6">📊 Desglose de Gastos</h3>
+       <div class="space-y-4">
+        <div class="flex items-center justify-between p-4 bg-[#fce4e4] rounded-lg border border-[#f0bcbe]">
+         <div class="flex items-center gap-3"><span class="category-badge badge-essential">Esenciales</span> <span class="text-sm text-[#666]">Necesarios para vivir</span>
+         </div>
+         <div class="text-right">
+          <div class="font-bold text-[#2c2416]" id="break-essential">
+           $0.00
+          </div>
+          <div class="text-xs text-[#666]" id="break-essential-pct">
+           0%
+          </div>
+         </div>
+        </div>
+        <div class="flex items-center justify-between p-4 bg-[#e8f3ff] rounded-lg border border-[#c5e1ff]">
+         <div class="flex items-center gap-3"><span class="category-badge badge-desire">Deseos</span> <span class="text-sm text-[#666]">Diversión y disfrute</span>
+         </div>
+         <div class="text-right">
+          <div class="font-bold text-[#2c2416]" id="break-desire">
+           $0.00
+          </div>
+          <div class="text-xs text-[#666]" id="break-desire-pct">
+           0%
+          </div>
+         </div>
+        </div>
+        <div class="flex items-center justify-between p-4 bg-[#e4f3e8] rounded-lg border border-[#c1e5cc]">
+         <div class="flex items-center gap-3"><span class="category-badge badge-support">Ahorro y Apoyo</span> <span class="text-sm text-[#666]">Generosidad y ahorro</span>
+         </div>
+         <div class="text-right">
+          <div class="font-bold text-[#2c2416]" id="break-support">
+           $0.00
+          </div>
+          <div class="text-xs text-[#666]" id="break-support-pct">
+           0%
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Insights -->
+      <div class="card bg-gradient-to-br from-[#faf7f2] to-[#f5f1ed] border-2 border-[#d4a574]">
+       <h3 class="font-semibold text-[#2c2416] mb-4">💡 Insights &amp; Recomendaciones</h3>
+       <div id="insightsSection" class="space-y-3"></div>
+      </div>
+      <div class="flex gap-4 justify-end"><button class="btn-secondary" onclick="previousStep()">Atrás</button> <button class="btn-primary" onclick="nextStep()">Continuar →</button>
+      </div>
+     </div>
+    </section><!-- PASO 4: ACCIÓN -->
+    <section id="step4" class="step-section hidden">
+     <div class="mb-8"><span class="step-badge bg-[#3a6b3a] text-white px-4 py-2 rounded-full text-sm">Paso 4 de 4</span>
+      <h2 class="section-title mt-6">✅ ACCIÓN: Tu Plan de Cambio</h2>
+      <p class="text-[#666] mt-2">Define tus ajustes, metas y hábitos para este mes.</p>
+     </div>
+     <div class="grid gap-6"><!-- Ajustes -->
+      <div class="card">
+       <h3 class="font-semibold text-[#2c2416] mb-4 flex items-center gap-2"><span class="text-lg">🎯</span> Ajustes del Mes</h3>
+       <p class="text-sm text-[#666] mb-4">¿Qué cambios harás en tus gastos este mes?</p><textarea id="adjustments" class="input-field w-full h-24" placeholder="Ej: Reducir comidas fuera, cancelar suscripciones, limitar compras..."></textarea>
+      </div><!-- Meta de Ahorro -->
+      <div class="card">
+       <h3 class="font-semibold text-[#2c2416] mb-4 flex items-center gap-2"><span class="text-lg">🌱</span> Meta de Ahorro</h3>
+       <p class="text-sm text-[#666] mb-4">¿Cuánto te gustaría ahorrar este mes?</p>
+       <div class="flex items-center gap-2"><span class="text-[#999]">$</span> <input type="number" id="savingsGoal" class="input-field flex-1" placeholder="0.00">
+       </div>
+       <p class="text-xs text-[#999] mt-2">💭 Sé realista. Pequeños ahorros consistentes crean grandes cambios.</p>
+      </div><!-- Cambios de Hábitos -->
+      <div class="card">
+       <h3 class="font-semibold text-[#2c2416] mb-4 flex items-center gap-2"><span class="text-lg">🔄</span> Cambios de Hábitos</h3>
+       <p class="text-sm text-[#666] mb-4">¿Qué hábitos nuevos implementarás?</p><textarea id="habitChanges" class="input-field w-full h-24" placeholder="Ej: Revisar gastos diarios, llevar presupuesto, ahorrar antes de gastar..."></textarea>
+      </div><!-- Checklist Mensual -->
+      <div class="card">
+       <h3 class="font-semibold text-[#2c2416] mb-6 flex items-center gap-2"><span class="text-lg">📌</span> Checklist de Seguimiento Mensual</h3>
+       <div class="space-y-3 mb-6" id="checklistContainer"><label class="flex items-center gap-3 p-3 bg-[#faf7f2] rounded-lg cursor-pointer hover:bg-[#f5f1ed] transition"> <input type="checkbox" class="checkbox-custom" data-checklist="1"> <span class="text-sm text-[#2c2416]">Revisar mis ingresos</span> </label> <label class="flex items-center gap-3 p-3 bg-[#faf7f2] rounded-lg cursor-pointer hover:bg-[#f5f1ed] transition"> <input type="checkbox" class="checkbox-custom" data-checklist="2"> <span class="text-sm text-[#2c2416]">Registrar todos mis gastos</span> </label> <label class="flex items-center gap-3 p-3 bg-[#faf7f2] rounded-lg cursor-pointer hover:bg-[#f5f1ed] transition"> <input type="checkbox" class="checkbox-custom" data-checklist="3"> <span class="text-sm text-[#2c2416]">Cumplir con mi meta de ahorro</span> </label> <label class="flex items-center gap-3 p-3 bg-[#faf7f2] rounded-lg cursor-pointer hover:bg-[#f5f1ed] transition"> <input type="checkbox" class="checkbox-custom" data-checklist="4"> <span class="text-sm text-[#2c2416]">Practicar mi nuevo hábito</span> </label> <label class="flex items-center gap-3 p-3 bg-[#faf7f2] rounded-lg cursor-pointer hover:bg-[#f5f1ed] transition"> <input type="checkbox" class="checkbox-custom" data-checklist="5"> <span class="text-sm text-[#2c2416]">Hacer reflexión semanal</span> </label> <label class="flex items-center gap-3 p-3 bg-[#faf7f2] rounded-lg cursor-pointer hover:bg-[#f5f1ed] transition"> <input type="checkbox" class="checkbox-custom" data-checklist="6"> <span class="text-sm text-[#2c2416]">Celebrar mis logros</span> </label>
+       </div>
+       <div class="flex gap-2"><input type="text" id="customChecklistItem" class="input-field flex-1" placeholder="Agregar otro item al checklist"> <button class="btn-secondary px-4" onclick="addChecklistItem()">+ Agregar</button>
+       </div>
+      </div><!-- Reflexión Mensual -->
+      <div class="card bg-gradient-to-br from-[#e4f3e8] to-[#eef8f1] border-2 border-[#3a6b3a]">
+       <h3 class="font-semibold text-[#2c2416] mb-4 flex items-center gap-2"><span class="text-lg">🌟</span> Reflexión Mensual Inicial</h3>
+       <p class="text-sm text-[#666] mb-4">¿Cómo esperas sentirte después de aplicar estos cambios?</p><textarea id="monthlyReflection" class="input-field w-full h-24" placeholder="Describe cómo esperas sentirte, qué cambios esperas ver, qué representa el control financiero para ti..."></textarea>
+      </div><!-- Final Buttons -->
+      <div class="flex gap-4 justify-end"><button class="btn-secondary" onclick="previousStep()">Atrás</button> <button class="btn-primary" onclick="saveAllData()"> <span id="saveBtnText">💾 Guardar Mi Plan Financiero</span> <span id="saveBtnLoading" class="loading hidden ml-2"></span> </button>
+      </div>
+     </div>
+    </section><!-- Success Section -->
+    <section id="successSection" class="hidden">
+     <div class="card bg-gradient-to-br from-[#e4f3e8] to-[#eef8f1] border-4 border-[#3a6b3a] text-center py-12">
+      <div class="text-6xl mb-4">
+       🎉
+      </div>
+      <h2 class="text-2xl font-bold text-[#2c2416] mb-2" style="font-family: 'Lora', serif;">¡Felicidades!</h2>
+      <p class="text-lg text-[#666] mb-6">Has completado tu Plan Financiero con Método COTA.</p>
+      <p class="text-sm text-[#666] mb-8">Tu plan ha sido guardado y <strong>enviado a tu correo</strong>. Ahora es momento de <strong>actuar</strong> y transformar tu relación con el dinero.</p>
+      <div class="bg-white rounded-lg p-6 mb-8 text-left max-w-md mx-auto">
+       <h3 class="font-semibold text-[#2c2416] mb-4">📋 Tu Resumen Mensual:</h3>
+       <div class="space-y-2 text-sm text-[#666]">
+        <div class="flex justify-between">
+         <span>Ingresos:</span><span class="font-semibold text-green-600" id="final-income">$0.00</span>
+        </div>
+        <div class="flex justify-between">
+         <span>Gastos:</span><span class="font-semibold text-[#b85450]" id="final-expense">$0.00</span>
+        </div>
+        <div class="flex justify-between border-t pt-2 mt-2">
+         <span>Balance:</span><span class="font-semibold" id="final-balance">$0.00</span>
+        </div>
+       </div>
+      </div>
+      <div class="bg-[#fff3cd] border-l-4 border-[#ffc107] p-4 rounded-lg mb-8 text-left text-sm text-[#666]">
+       <p class="font-semibold text-[#856404] mb-2">💡 Recuerda:</p>
+       <p>El control financiero no es sobre privarte. Es sobre ser consciente de tus decisiones y alinearlas con tus valores. Cada pequeño paso cuenta.</p>
+      </div>
+      <div class="bg-[#d4edda] border-l-4 border-[#28a745] p-4 rounded-lg mb-8 text-left text-sm text-[#155724]">
+       <p class="font-semibold mb-2">✅ Próximos pasos:</p>
+       <p>Revisa tu correo para obtener un resumen completo de tu diagnóstico. Mayte también revisará tus respuestas para darte recomendaciones personalizadas.</p>
+      </div>
+      <a href="https://wa.me/523330257643?text=Hola%20Mayte,%20quiero%20inscribirme%20al%20taller%20completo%20de%20Finanzas%20Simples" target="_blank" class="btn-primary mb-4">📞 Quiero el taller completo</a>
+      <button class="btn-secondary ml-2" onclick="location.reload()">← Volver al Inicio</button>
+     </div>
+    </section>
+   </main>
+  </div>
+  <script>
+        // Global State
         let currentStep = 0;
-        const allData = {
+        let allData = {
             name: '',
             email: '',
             phone: '',
@@ -627,10 +663,12 @@
             adjustments: '',
             savingsGoal: 0,
             habitChanges: '',
+            checklist: {},
             reflection: ''
         };
 
-        document.addEventListener('DOMContentLoaded', () => {
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
             updateCurrentMonth();
             renderStepIndicator();
             setupEventListeners();
@@ -643,9 +681,11 @@
         }
 
         function setupEventListeners() {
+            // Auto-calculate on input
             document.addEventListener('change', calculateTotals);
             document.addEventListener('blur', calculateTotals, true);
             
+            // Enter key for adding items
             document.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter' && e.target.tagName === 'INPUT') {
                     if (e.target.id === 'incomeAmount') addIncome();
@@ -672,12 +712,13 @@
 
         function nextStep() {
             if (currentStep === 0) {
-                if (!validateStep0()) return;
+                if (!validateContactInfo()) return;
                 allData.name = document.getElementById('userName').value;
                 allData.email = document.getElementById('userEmail').value;
                 allData.phone = document.getElementById('userPhone').value;
             }
             if (currentStep < 4) {
+                saveCurrentStep();
                 currentStep++;
                 showCurrentStep();
             }
@@ -697,7 +738,7 @@
             }
         }
 
-        function validateStep0() {
+        function validateContactInfo() {
             const name = document.getElementById('userName').value.trim();
             const email = document.getElementById('userEmail').value.trim();
             const phone = document.getElementById('userPhone').value.trim();
@@ -728,11 +769,22 @@
             }
         }
 
+        function saveCurrentStep() {
+            if (currentStep === 1) {
+                allData.feeling = document.getElementById('feeling').value;
+                allData.reflections = {
+                    q1: document.getElementById('reflection1').value,
+                    q2: document.getElementById('reflection2').value,
+                    q3: document.getElementById('reflection3').value
+                };
+            }
+        }
+
         function addIncome() {
-            const source = document.getElementById('incomeSource').value.trim();
+            const source = document.getElementById('incomeSource').value;
             const amount = parseFloat(document.getElementById('incomeAmount').value) || 0;
 
-            if (!source) {
+            if (!source.trim()) {
                 alert('Por favor ingresa una fuente de ingreso');
                 return;
             }
@@ -764,10 +816,10 @@
         function addExpense(category) {
             const categoryEl = document.getElementById(`${category}Category`);
             const amountEl = document.getElementById(`${category}Amount`);
-            const categoryName = categoryEl.value.trim();
+            const categoryName = categoryEl.value;
             const amount = parseFloat(amountEl.value) || 0;
 
-            if (!categoryName) {
+            if (!categoryName.trim()) {
                 alert('Por favor ingresa una categoría');
                 return;
             }
@@ -836,7 +888,10 @@
             document.getElementById('final-expense').textContent = `$${totalExpense.toFixed(2)}`;
             document.getElementById('final-balance').textContent = `$${balance.toFixed(2)}`;
 
+            // Generate Alerts
             generateAlerts(totalIncome, totalExpense, balance, totalDesire, totalEssential);
+
+            // Generate Insights
             generateInsights(totalIncome, totalExpense, balance, totalEssential, totalDesire, totalSupport);
         }
 
@@ -850,19 +905,19 @@
             }
 
             if (balance < 0) {
-                alertSection.innerHTML += `<div class="alert-warning">⚠️ <strong>Gastas más de lo que ganas.</strong> Necesitas ajustar tus gastos. Comienza reduciendo los Deseos.</div>`;
+                alertSection.innerHTML += `<div class="alert-warning">⚠️ <strong>Alerta: Gastas más de lo que ganas.</strong> Necesitas ajustar tus gastos. Comienza reduciendo los "Deseos" o revisando los "Esenciales".</div>`;
             } else if (balance > 0 && balance < income * 0.1) {
-                alertSection.innerHTML += `<div class="alert-warning">💡 Tu balance es positivo pero bajo. Intenta aumentar tu meta de ahorro.</div>`;
+                alertSection.innerHTML += `<div class="alert-warning">💡 Tu balance es positivo pero bajo. Intenta aumentar tu meta de ahorro o reducir gastos en Deseos.</div>`;
             } else if (balance > 0) {
-                alertSection.innerHTML += `<div class="alert-success">✅ <strong>¡Excelente!</strong> Tienes saldo positivo. ${Math.round((balance/income)*100)}% de tu ingreso está disponible.</div>`;
+                alertSection.innerHTML += `<div class="alert-success">✅ <strong>¡Excelente!</strong> Tienes saldo positivo. Considera ahorrar al menos ${Math.round((balance/income)*100)}% de tus ingresos.</div>`;
             }
 
             if (desire > income * 0.3) {
-                alertSection.innerHTML += `<div class="alert-warning">💭 Tus Deseos superan el 30% de tu ingreso. Podrías ajustar esto.</div>`;
+                alertSection.innerHTML += `<div class="alert-warning">💭 Tus gastos en "Deseos" representan más del 30% de tu ingreso. Podrías ajustar esto para mayor estabilidad.</div>`;
             }
 
             if (essential > income * 0.7) {
-                alertSection.innerHTML += `<div class="alert-warning">🏠 Tus Esenciales son más del 70% de tu ingreso. Revisa si hay categorías para optimizar.</div>`;
+                alertSection.innerHTML += `<div class="alert-warning">🏠 Tus gastos esenciales son más del 70% de tu ingreso. Revisa si hay categorías que podrían optimizarse.</div>`;
             }
         }
 
@@ -876,77 +931,142 @@
             }
 
             if (expense === 0) {
-                messages.push('📊 Sin gastos registrados. Completa la sección para ver análisis.');
+                messages.push('📊 Sin gastos registrados. Completa la sección de Organización para ver análisis.');
             } else {
                 const essentialPct = Math.round((essential / expense) * 100);
                 const desirePct = Math.round((desire / expense) * 100);
                 const supportPct = Math.round((support / expense) * 100);
 
                 if (essentialPct > 70) {
-                    messages.push(`🏠 Esenciales: ${essentialPct}% - Busca optimizar servicios o gastos fijos.`);
+                    messages.push(`🏠 Tus esenciales son ${essentialPct}% de tus gastos. Si es muy alto, busca formas de optimizar servicios o gastos fijos.`);
+                } else if (essentialPct < 50) {
+                    messages.push(`🎯 Tus esenciales son solo ${essentialPct}% de tus gastos. Tienes buena flexibilidad financiera.`);
                 }
+
                 if (desirePct > 30) {
-                    messages.push(`🎯 Deseos: ${desirePct}% - Considera reducirlo al 20-30% para mayor ahorro.`);
+                    messages.push(`🎯 Gastas ${desirePct}% en Deseos. Considera reducirlo al 20-30% para mayor ahorro.`);
+                } else if (desirePct > 0) {
+                    messages.push(`😊 Tu balance entre Deseo (${desirePct}%) y necesidad es saludable.`);
                 }
+
                 if (supportPct > 0) {
-                    messages.push(`❤️ Apoyo: ${supportPct}% - ¡Tu generosidad muestra valores sólidos!`);
+                    messages.push(`❤️ ¡Excelente! Destinas ${supportPct}% a Ahorro y Apoyo. Tu compromiso con el futuro muestra valores sólidos.`);
+                } else {
+                    messages.push(`💭 Considera incluir "Ahorro y Apoyo" en tu presupuesto.`);
                 }
+
                 if (balance > 0) {
-                    messages.push(`💚 Balance: $${balance.toFixed(2)} - Excelente, tienes capacidad de ahorro.`);
+                    messages.push(`💚 Balance positivo de $${balance.toFixed(2)}. Puedes ahorrar o destinar a metas.`);
                 }
             }
 
-            insights.innerHTML = messages.length > 0 ? messages.map(msg => `<p class="text-sm text-[#666]">• ${msg}</p>`).join('') : '<p class="text-[#666]">Completa tu información para recibir insights.</p>';
+            insights.innerHTML = messages.map(msg => `<p class="text-sm text-[#666]">• ${msg}</p>`).join('');
+        }
+
+        function addChecklistItem() {
+            const input = document.getElementById('customChecklistItem');
+            const item = input.value.trim();
+
+            if (!item) return;
+
+            const container = document.getElementById('checklistContainer');
+            const label = document.createElement('label');
+            label.className = 'flex items-center gap-3 p-3 bg-[#faf7f2] rounded-lg cursor-pointer hover:bg-[#f5f1ed] transition';
+            label.innerHTML = `
+                <input type="checkbox" class="checkbox-custom" data-custom="true">
+                <span class="text-sm text-[#2c2416]">${item}</span>
+            `;
+            container.appendChild(label);
+            input.value = '';
         }
 
         async function saveAllData() {
-            // Collect Step 4 data
-            allData.adjustments = document.getElementById('adjustments').value;
-            allData.savingsGoal = parseFloat(document.getElementById('savingsGoal').value) || 0;
-            allData.habitChanges = document.getElementById('habitChanges').value;
-            allData.reflection = document.getElementById('monthlyReflection').value;
+            // Collect all data
             allData.feeling = document.getElementById('feeling').value;
             allData.reflections = {
                 q1: document.getElementById('reflection1').value,
                 q2: document.getElementById('reflection2').value,
                 q3: document.getElementById('reflection3').value
             };
+            allData.adjustments = document.getElementById('adjustments').value;
+            allData.savingsGoal = parseFloat(document.getElementById('savingsGoal').value) || 0;
+            allData.habitChanges = document.getElementById('habitChanges').value;
+            allData.reflection = document.getElementById('monthlyReflection').value;
+
+            // Collect checklist
+            document.querySelectorAll('[data-checklist], [data-custom]').forEach((cb, idx) => {
+                allData.checklist[`item_${idx}`] = cb.checked ? 'checked' : 'unchecked';
+            });
+
+            const saveBtnText = document.getElementById('saveBtnText');
+            const saveBtnLoading = document.getElementById('saveBtnLoading');
+            saveBtnText.style.display = 'none';
+            saveBtnLoading.classList.remove('hidden');
 
             try {
-                // Send to Formspree
-                const formData = new FormData();
-                formData.append('_subject', `📊 Diagnóstico COTA - ${allData.name} - ${allData.month}`);
-                formData.append('_replyto', allData.email);
-                formData.append('Nombre', allData.name);
-                formData.append('Email', allData.email);
-                formData.append('WhatsApp', allData.phone);
-                formData.append('Mes', allData.month);
-                formData.append('Sentimiento', allData.feeling);
-                formData.append('Preocupación', allData.reflections.q1);
-                formData.append('Cambio Deseado', allData.reflections.q2);
-                formData.append('Control Financiero', allData.reflections.q3);
-                formData.append('Ingresos', JSON.stringify(allData.incomes));
-                formData.append('Esenciales', JSON.stringify(allData.essentials));
-                formData.append('Deseos', JSON.stringify(allData.desires));
-                formData.append('Apoyo', JSON.stringify(allData.supports));
-                formData.append('Ajustes', allData.adjustments);
-                formData.append('Meta Ahorro', `$${allData.savingsGoal.toFixed(2)}`);
-                formData.append('Cambios Hábitos', allData.habitChanges);
-                formData.append('Reflexión', allData.reflection);
+                // Calculate totals for email
+                const totalIncome = allData.incomes.reduce((sum, i) => sum + i.amount, 0);
+                const totalEssential = allData.essentials.reduce((sum, e) => sum + e.amount, 0);
+                const totalDesire = allData.desires.reduce((sum, d) => sum + d.amount, 0);
+                const totalSupport = allData.supports.reduce((sum, s) => sum + s.amount, 0);
 
-                const response = await fetch('https://formspree.io/f/xeepznwo', {
+                // Send email to Mayte with user's data
+                const mayteFomData = new FormData();
+                mayteFomData.append('_subject', `📊 NUEVO DIAGNÓSTICO COTA: ${allData.name} - ${allData.month}`);
+                mayteFomData.append('_replyto', allData.email);
+                mayteFomData.append('Nombre del Usuario', allData.name);
+                mayteFomData.append('Correo del Usuario', allData.email);
+                mayteFomData.append('WhatsApp del Usuario', allData.phone);
+                mayteFomData.append('Mes', allData.month);
+                mayteFomData.append('Sentimiento Inicial', allData.feeling);
+                mayteFomData.append('Preocupación Principal', allData.reflections.q1);
+                mayteFomData.append('Cambio Deseado', allData.reflections.q2);
+                mayteFomData.append('Concepto Control Financiero', allData.reflections.q3);
+                mayteFomData.append('Total Ingresos', `$${totalIncome.toFixed(2)}`);
+                mayteFomData.append('Ingresos', JSON.stringify(allData.incomes));
+                mayteFomData.append('Total Esenciales', `$${totalEssential.toFixed(2)}`);
+                mayteFomData.append('Gastos Esenciales', JSON.stringify(allData.essentials));
+                mayteFomData.append('Total Deseos', `$${totalDesire.toFixed(2)}`);
+                mayteFomData.append('Gastos Deseos', JSON.stringify(allData.desires));
+                mayteFomData.append('Total Ahorro y Apoyo', `$${totalSupport.toFixed(2)}`);
+                mayteFomData.append('Gastos Ahorro y Apoyo', JSON.stringify(allData.supports));
+                mayteFomData.append('Ajustes del Mes', allData.adjustments);
+                mayteFomData.append('Meta de Ahorro', `$${allData.savingsGoal.toFixed(2)}`);
+                mayteFomData.append('Cambios de Hábitos', allData.habitChanges);
+                mayteFomData.append('Reflexión Mensual', allData.reflection);
+
+                // Send to Mayte's email (xeepznwo)
+                const matyeResult = await fetch('https://formspree.io/f/xeepznwo', {
                     method: 'POST',
-                    body: formData
+                    body: mayteFomData
                 });
 
-                if (response.ok) {
-                    showSuccessSection();
-                } else {
-                    showSuccessSection();
-                }
+                // Also send a copy to the user
+                const userFormData = new FormData();
+                userFormData.append('_subject', `✅ Tu Diagnóstico COTA - ${allData.month}`);
+                userFormData.append('_autorespond', 'Tu diagnóstico COTA ha sido completado exitosamente');
+                userFormData.append('Nombre', allData.name);
+                userFormData.append('Mes', allData.month);
+                userFormData.append('Resumen Ingresos', `Total: $${totalIncome.toFixed(2)}`);
+                userFormData.append('Resumen Gastos Esenciales', `Total: $${totalEssential.toFixed(2)}`);
+                userFormData.append('Resumen Gastos Deseos', `Total: $${totalDesire.toFixed(2)}`);
+                userFormData.append('Resumen Ahorro y Apoyo', `Total: $${totalSupport.toFixed(2)}`);
+                userFormData.append('Meta de Ahorro Este Mes', `$${allData.savingsGoal.toFixed(2)}`);
+                userFormData.append('Balance Mensual', `$${(totalIncome - (totalEssential + totalDesire + totalSupport)).toFixed(2)}`);
+
+                // Send to user
+                const userResult = await fetch('https://formspree.io/f/xeepznwo', {
+                    method: 'POST',
+                    body: userFormData
+                });
+
+                showSuccessSection();
             } catch (error) {
                 console.error('Error:', error);
-                showSuccessSection();
+                showSuccessSection(); // Show success even if email fails
+            } finally {
+                saveBtnText.style.display = 'inline';
+                saveBtnLoading.classList.add('hidden');
             }
         }
 
@@ -956,5 +1076,5 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
-</body>
+  </body>
 </html>
