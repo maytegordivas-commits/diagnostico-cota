@@ -1063,37 +1063,47 @@
                 showSuccessSection();
             } catch (error) {
                 console.error('Error:', error);
-                showSuccessSection(); // Show success even if email fails
+                showSuccessSection(); // Show success even if email fails    
             } finally {
                 saveBtnText.style.display = 'inline';
                 saveBtnLoading.classList.add('hidden');
             }
-        } // Fin de saveAllData
+        } // <--- Aquí termina tu función saveAllData original
 
-        // --- FUNCIÓN DE RESPALDO A GOOGLE SHEETS ---
+        // --- FUNCIÓN DE RESPALDO A GOOGLE SHEETS (SHEET MONKEY) ---
         async function respaldarEnGoogleSheets() {
             try {
                 const monkeyData = new FormData();
                 
-                // Datos de Identificación
-                monkeyData.append('Fecha_Registro', new Date().toLocaleString());
-                monkeyData.append('Nombre', allData.name || 'N/A');
-                monkeyData.append('Email', allData.email || 'N/A');
-                monkeyData.append('WhatsApp', allData.phone || 'N/A');
-                monkeyData.append('Mes', allData.month || 'N/A');
-                
-                // Totales Calculados
+                // 1. Identificación y Contacto
+                monkeyData.append('Fecha', new Date().toLocaleString());
+                monkeyData.append('Nombre', allData.name);
+                monkeyData.append('Email', allData.email);
+                monkeyData.append('WhatsApp', allData.phone);
+                monkeyData.append('Mes', allData.month);
+
+                // 2. Metodología COTA (Reflexiones y Sentimientos)
+                monkeyData.append('Sentimiento_Inicial', allData.feeling);
+                monkeyData.append('Reto_Principal', allData.reflections.q1);
+                monkeyData.append('Cambio_Deseado', allData.reflections.q2);
+                monkeyData.append('Concepto_Control', allData.reflections.q3);
+
+                // 3. Resultados Numéricos (70/20/10)
                 const tInc = allData.incomes.reduce((sum, i) => sum + i.amount, 0);
                 const tEss = allData.essentials.reduce((sum, e) => sum + e.amount, 0);
                 const tDes = allData.desires.reduce((sum, d) => sum + d.amount, 0);
                 const tSup = allData.supports.reduce((sum, s) => sum + s.amount, 0);
 
                 monkeyData.append('Total_Ingresos', `$${tInc.toFixed(2)}`);
-                monkeyData.append('Esenciales_70', `$${tEss.toFixed(2)}`);
-                monkeyData.append('Deseos_20', `$${tDes.toFixed(2)}`);
+                monkeyData.append('Gastos_Esenciales_70', `$${tEss.toFixed(2)}`);
+                monkeyData.append('Gastos_Deseos_20', `$${tDes.toFixed(2)}`);
                 monkeyData.append('Ahorro_Apoyo_10', `$${tSup.toFixed(2)}`);
+                monkeyData.append('Balance_Final', `$${(tInc - (tEss + tDes + tSup)).toFixed(2)}`);
+
+                // 4. Acción y Cierre
                 monkeyData.append('Meta_Ahorro', `$${allData.savingsGoal.toFixed(2)}`);
-                monkeyData.append('Reflexion_Final', allData.reflection || 'N/A');
+                monkeyData.append('Cambios_Habitos', allData.habitChanges);
+                monkeyData.append('Reflexion_Final', allData.reflection);
 
                 // ENVÍO A TU URL DE SHEET MONKEY
                 fetch('https://api.sheetmonkey.io/form/ubCUEeCSKmWTTUjG3thvYj', {
@@ -1102,22 +1112,69 @@
                     mode: 'no-cors'
                 });
 
-                console.log("✅ Datos enviados a Google Sheets.");
+                console.log("✅ Respaldo en Google Sheets enviado con éxito.");
             } catch (error) {
-                console.log("⚠️ Error en respaldo:", error);
+                console.log("⚠️ Error en respaldo Sheet Monkey:", error);
             }
         }
 
-        // Función de éxito (Se activa al terminar)
+        // --- FUNCIÓN DE ÉXITO CON ANÁLISIS PARA VENDER EL TALLER ---
         function showSuccessSection() {
             document.querySelectorAll('.step-section').forEach(s => s.classList.add('hidden'));
-            document.getElementById('successSection').classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const successSection = document.getElementById('successSection');
+            successSection.classList.remove('hidden');
+
+            // Cálculos para mostrar al usuario su realidad financiera
+            const tInc = allData.incomes.reduce((sum, i) => sum + i.amount, 0);
+            const tEss = allData.essentials.reduce((sum, e) => sum + e.amount, 0);
+            const tDes = allData.desires.reduce((sum, d) => sum + d.amount, 0);
+            const tSup = allData.supports.reduce((sum, s) => sum + s.amount, 0);
             
-            // Llama a la función de respaldo para Sheet Monkey
+            const pEss = ((tEss / tInc) * 100).toFixed(0);
+            const pDes = ((tDes / tInc) * 100).toFixed(0);
+            const pSup = ((tSup / tInc) * 100).toFixed(0);
+
+            // Diagnóstico rápido de Mayte Gaby
+            let comentarioMayte = "";
+            if (pEss > 75) { comentarioMayte = "¡Alerta! Tus gastos esenciales absorben demasiado de tus ingresos. Necesitamos optimizar tu estructura pronto."; }
+            else if (pDes > 25) { comentarioMayte = "Ojo con los gastos de deseo. Esas 'fugas' están impidiendo que construyas tu fondo de paz."; }
+            else if (pSup < 10) { comentarioMayte = "Tu ahorro está por debajo de la meta. Es vital priorizar tu seguridad financiera."; }
+            else { comentarioMayte = "¡Vas por excelente camino! Pero siempre hay espacio para potenciar tus decisiones inteligentes."; }
+
+            // Inyectar HTML dinámico con el resumen
+            successSection.innerHTML = `
+                <div class="card p-8 text-center max-w-2xl mx-auto shadow-2xl border-2 border-[#d4a574]">
+                    <h2 class="section-title text-3xl mb-4 text-[#2c2416]">¡Diagnóstico COTA Finalizado!</h2>
+                    <p class="mb-6 text-gray-600">Hola <strong>${allData.name}</strong>, he enviado una copia detallada a tu correo.</p>
+                    
+                    <div class="bg-[#faf7f2] p-6 rounded-2xl mb-8 border border-[#e8dcc8] text-left">
+                        <h3 class="font-bold text-[#8b7355] text-lg mb-4 underline">Tu Radiografía Financiera:</h3>
+                        <div class="space-y-3 mb-6">
+                            <p class="flex justify-between"><span>🏠 Esenciales:</span> <strong>${pEss}%</strong> (Meta: 70%)</p>
+                            <p class="flex justify-between"><span>🛍️ Deseos:</span> <strong>${pDes}%</strong> (Meta: 20%)</p>
+                            <p class="flex justify-between"><span>🛡️ Ahorro/Apoyo:</span> <strong>${pSup}%</strong> (Meta: 10%)</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg border-l-4 border-[#d4a574] italic text-gray-700">
+                            "${comentarioMayte}"
+                        </div>
+                    </div>
+
+                    <div class="bg-[#2c2416] text-white p-6 rounded-2xl">
+                        <h4 class="font-bold text-xl mb-3">¿Listo para tomar Acción?</h4>
+                        <p class="text-sm mb-5 opacity-90">Este diagnóstico es solo el primer paso. En mi taller completo te enseñaré a dominar estos números para que el dinero trabaje para ti.</p>
+                        <a href="https://wa.me" 
+                           target="_blank"
+                           class="btn-primary inline-block w-full bg-[#d4a574] hover:bg-[#8b7355] text-white py-3 rounded-xl font-bold transition-all">
+                           ¡Quiero inscribirme al Taller Completo!
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            // Ejecutamos el respaldo silencioso a Sheet Monkey
             respaldarEnGoogleSheets();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
   </body>
 </html>
-
