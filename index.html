@@ -3,45 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Finanzas Simples - Método COTA</title>
+<title>Diagnóstico Finanzas Simples - Método COTA</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen p-6">
+
+<div class="bg-white p-6 rounded-2xl shadow-xl w-full max-w-md">
 
 <form id="formCOTA">
 
-<!-- PASO 0 -->
+<!-- PASO 1 -->
 <section id="step0">
-<h2>Datos</h2>
+<h2 class="text-xl font-bold mb-4">📊 Datos básicos</h2>
 
-<input type="text" id="userName" name="Nombre" placeholder="Nombre" required>
-<input type="email" id="userEmail" name="email" placeholder="Correo" required>
-<input type="tel" id="userPhone" name="WhatsApp" placeholder="WhatsApp" required>
+<input type="text" id="userName" placeholder="Nombre" class="border p-2 mb-3 w-full rounded" required>
+<input type="email" id="userEmail" placeholder="Correo" class="border p-2 mb-3 w-full rounded" required>
+<input type="tel" id="userPhone" placeholder="WhatsApp" class="border p-2 mb-4 w-full rounded" required>
 
-<button type="button" onclick="nextStep()">Continuar</button>
+<button type="button" onclick="nextStep()" class="bg-black text-white px-4 py-2 rounded w-full">
+Continuar
+</button>
 </section>
 
-<!-- PASO 1 -->
+<!-- PASO 2 -->
 <section id="step1" style="display:none;">
-<h2>Sentimiento</h2>
+<h2 class="text-xl font-bold mb-4">💭 Tu situación</h2>
 
-<textarea id="feeling" placeholder="¿Cómo te sientes?"></textarea>
+<textarea id="feeling" placeholder="¿Cómo te sientes con tus finanzas?" class="border p-2 mb-4 w-full rounded"></textarea>
 
-<button type="button" onclick="previousStep()">Atrás</button>
-<button type="button" onclick="nextStep()">Continuar</button>
+<div class="flex gap-2">
+<button type="button" onclick="previousStep()" class="border px-4 py-2 rounded w-1/2">
+Atrás
+</button>
+
+<button type="button" onclick="nextStep()" class="bg-black text-white px-4 py-2 rounded w-1/2">
+Continuar
+</button>
+</div>
 </section>
 
 <!-- PASO FINAL -->
 <section id="step2" style="display:none;">
-<h2>Final</h2>
+<h2 class="text-xl font-bold mb-4">🚀 Finalizar</h2>
 
-<button type="button" onclick="enviar()">Enviar Diagnóstico</button>
+<button type="button" onclick="enviar()" class="bg-green-600 text-white px-4 py-2 rounded w-full">
+Enviar Diagnóstico
+</button>
 </section>
 
 </form>
 
+</div>
+
 <script>
+
 let currentStep = 0;
 
 function nextStep(){
@@ -58,51 +74,58 @@ document.getElementById("step"+currentStep).style.display="block";
 
 async function enviar(){
 
-const data = {
-nombre: document.getElementById("userName").value,
-email: document.getElementById("userEmail").value,
-telefono: document.getElementById("userPhone").value,
-feeling: document.getElementById("feeling").value
-};
+const nombre = document.getElementById("userName").value;
+const email = document.getElementById("userEmail").value;
+const telefono = document.getElementById("userPhone").value;
+const feeling = document.getElementById("feeling").value;
 
 const formData = new FormData();
 
-formData.append("Nombre", data.nombre);
-formData.append("Email", data.email);
-formData.append("WhatsApp", data.telefono);
-formData.append("Sentimiento", data.feeling);
-formData.append("_subject", "Nuevo Diagnóstico COTA");
-formData.append("_replyto", data.email);
+formData.append("Nombre", nombre);
+formData.append("Email", email);
+formData.append("WhatsApp", telefono);
+formData.append("Situación", feeling);
+formData.append("_subject", "Nuevo Diagnóstico Método COTA");
+formData.append("_replyto", email);
 
-try{
+try {
+
 const response = await fetch("https://formspree.io/f/xeepznwo", {
-method:"POST",
-body:formData,
-headers:{ "Accept":"application/json" }
+method: "POST",
+body: formData,
+headers: {
+"Accept": "application/json"
+}
 });
 
 if(response.ok){
-alert("¡Listo! Diagnóstico enviado");
-mostrarExito();
+mostrarExito(nombre);
 }else{
-alert("Error al enviar");
+alert("Error al enviar, intenta nuevamente");
 }
 
-}catch(error){
+} catch (error){
 alert("Error de conexión");
 }
+
 }
 
-function mostrarExito(){
+function mostrarExito(nombre){
 document.body.innerHTML = `
-<h1>🎉 Listo Mayte</h1>
-<p>Ya tienes un nuevo lead en tu correo</p>
+<div class="flex items-center justify-center min-h-screen bg-white p-6 text-center">
+<div>
+<h1 class="text-2xl font-bold mb-4">🎉 ¡Listo ${nombre}!</h1>
+<p class="mb-6">Tu diagnóstico ya fue enviado correctamente.</p>
 
-<a href="https://wa.me/523330257643?text=Hola%20Mayte,%20ya%20hice%20mi%20diagnóstico">
+<a href="https://wa.me/523330257643?text=Hola%20Mayte,%20ya%20hice%20mi%20diagnóstico%20y%20quiero%20mi%20asesoría"
+class="bg-green-500 text-white px-6 py-3 rounded-xl">
 Ir a WhatsApp
 </a>
+</div>
+</div>
 `;
 }
+
 </script>
 
 </body>
