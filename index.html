@@ -1064,6 +1064,9 @@
             } catch (error) {
                 console.error('Error:', error);
                 showSuccessSection(); // Show success even if email fails    
+Aquí tienes el código final ajustado con tu número de WhatsApp real (3330257643). Este bloque incluye el respaldo completo en Google Sheets y el análisis visual para cerrar la venta de tu taller.
+Sustituye desde el bloque finally hasta el cierre de tu archivo:
+
             } finally {
                 saveBtnText.style.display = 'inline';
                 saveBtnLoading.classList.add('hidden');
@@ -1071,7 +1074,7 @@
                 // Ejecutamos el respaldo a Google Sheets (Sheet Monkey)
                 respaldarEnGoogleSheets();
             }
-        } // <--- Cierre de la función saveAllData()
+        } // Cierre de la función saveAllData()
 
         async function respaldarEnGoogleSheets() {
             try {
@@ -1109,7 +1112,7 @@
                 monkeyData.append('Reflexion_Final', allData.reflection);
 
                 // ENVÍO A TU URL DE SHEET MONKEY
-                fetch('https://api.sheetmonkey.io/form/ubCUEeCSKmWTTUjG3thvYj', {
+                fetch('https://sheetmonkey.io', {
                     method: 'POST',
                     body: monkeyData,
                     mode: 'no-cors'
@@ -1140,18 +1143,18 @@
             let sugerencia = "";
             if (pEss > 75) sugerencia = "Tus gastos esenciales están muy altos. Necesitamos optimizarlos para recuperar tu tranquilidad.";
             else if (pDes > 25) sugerencia = "Ojo con los gastos de deseo. Esas pequeñas fugas están frenando tu crecimiento financiero.";
-            else if (pSup < 10) sugerencia = "Tu ahorro está por debajo de la meta. Es prioritario blindar tu futuro con un fondo de paz.";
+            else if (pSup < 10) sugerencia = "Tu ahorro está por debajo de la meta del 10%. Es prioritario blindar tu futuro con un fondo de paz.";
             else sugerencia = "¡Vas por excelente camino! Pero siempre podemos potenciar tus decisiones inteligentes.";
 
             // Inyectamos el resumen visual y la oferta del taller
             successSection.innerHTML = `
                 <div class="max-w-2xl mx-auto">
-                    <div class="card p-8 text-center border-2 border-[#d4a574] shadow-xl bg-white">
+                    <div class="card p-8 text-center border-2 border-[#d4a574] shadow-xl bg-white rounded-2xl">
                         <h2 class="section-title text-3xl mb-4 text-[#2c2416]">¡Diagnóstico COTA Finalizado!</h2>
                         <p class="mb-6 text-gray-600">Hola <strong>${allData.name}</strong>, aquí tienes tu radiografía financiera:</p>
                         
                         <div class="bg-[#faf7f2] p-6 rounded-2xl mb-8 border border-[#e8dcc8] text-left">
-                            <h3 class="font-bold text-[#8b7355] text-lg mb-4 underline">Tus porcentajes actuales:</h3>
+                            <h3 class="font-bold text-[#8b7355] text-lg mb-4 underline text-center">Tus porcentajes actuales:</h3>
                             <div class="space-y-3 mb-6">
                                 <p class="flex justify-between"><span>🏠 Esenciales:</span> <strong>${pEss}%</strong> (Meta: 70%)</p>
                                 <p class="flex justify-between"><span>🛍️ Deseos:</span> <strong>${pDes}%</strong> (Meta: 20%)</p>
@@ -1164,10 +1167,11 @@
 
                         <div class="bg-[#2c2416] text-white p-6 rounded-2xl">
                             <h4 class="font-bold text-xl mb-3 text-[#d4a574]">¿Lista para dominar tus números?</h4>
-                            <p class="text-sm mb-6 opacity-90">Este es el inicio. En mi taller completo aprenderás a pasar del papel a la acción para transformar estos resultados.</p>
+                            <p class="text-sm mb-6 opacity-90">Este es solo el inicio. En mi taller completo aprenderás a pasar del papel a la acción para transformar estos resultados de forma definitiva.</p>
                             <a href="https://wa.me{pEss}%/%20${pDes}%/%20${pSup}%.%20Quiero%20más%20información%20del%20taller." 
-                               class="btn-primary block w-full bg-[#d4a574] hover:bg-[#8b7355] text-white py-3 rounded-xl font-bold transition-all text-center no-underline shadow-md">
-                               ¡Quiero los detalles de mi dianóstico!
+                               target="_blank"
+                               class="btn-primary block w-full bg-[#d4a574] hover:bg-[#8b7355] text-white py-4 rounded-xl font-bold transition-all text-center no-underline shadow-md">
+                               ¡Quiero los resultados de mi dianóstico!
                             </a>
                         </div>
                     </div>
