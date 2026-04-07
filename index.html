@@ -1068,69 +1068,56 @@
                 saveBtnText.style.display = 'inline';
                 saveBtnLoading.classList.add('hidden');
             }
-         }
-                 // --- COPIA DESDE AQUÍ ---
-                // BLOQUE DE RESPALDO AUTOMÁTICO PARA GOOGLE SHEETS (SIN MODIFICAR ORIGINAL)
+        } // Fin de saveAllData
 
-                // Creamos una función independiente para no interferir con tus procesos
-                   async function respaldarEnGoogleSheets() {
-               try {
-                   const sheetMonkeyData = new FormData();
-        
-                // Usamos tus variables globales originales tal cual están en tu código
-                   sheetMonkeyData.append('Fecha_Registro', new Date().toLocaleString());
-                   sheetMonkeyData.append('Nombre', typeof allData !== 'undefined' ? allData.name : 'N/A');
-                   sheetMonkeyData.append('Email', typeof allData !== 'undefined' ? allData.email : 'N/A');
-                   sheetMonkeyData.append('WhatsApp', typeof allData !== 'undefined' ? allData.phone : 'N/A');
-                   sheetMonkeyData.append('Mes', typeof allData !== 'undefined' ? allData.month : 'N/A');
-        
-                // Resultados de la Metodología COTA
-                   sheetMonkeyData.append('Total_Ingresos', typeof totalIncome !== 'undefined' ? `$${totalIncome.toFixed(2)}` : '0');
-                   sheetMonkeyData.append('Esenciales_70', typeof totalEssential !== 'undefined' ? `$${totalEssential.toFixed(2)}` : '0');
-                   sheetMonkeyData.append('Deseos_20', typeof totalDesire !== 'undefined' ? `$${totalDesire.toFixed(2)}` : '0');
-                   sheetMonkeyData.append('Ahorro_Apoyo_10', typeof totalSupport !== 'undefined' ? `$${totalSupport.toFixed(2)}` : '0');
-        
-                   sheetMonkeyData.append('Meta_Ahorro', typeof allData !== 'undefined' ? `$${allData.savingsGoal.toFixed(2)}` : '0');
-                   sheetMonkeyData.append('Reflexion_Final', typeof allData !== 'undefined' ? allData.reflection : 'N/A');
+        // --- FUNCIÓN DE RESPALDO A GOOGLE SHEETS ---
+        async function respaldarEnGoogleSheets() {
+            try {
+                const monkeyData = new FormData();
+                
+                // Datos de Identificación
+                monkeyData.append('Fecha_Registro', new Date().toLocaleString());
+                monkeyData.append('Nombre', allData.name || 'N/A');
+                monkeyData.append('Email', allData.email || 'N/A');
+                monkeyData.append('WhatsApp', allData.phone || 'N/A');
+                monkeyData.append('Mes', allData.month || 'N/A');
+                
+                // Totales Calculados
+                const tInc = allData.incomes.reduce((sum, i) => sum + i.amount, 0);
+                const tEss = allData.essentials.reduce((sum, e) => sum + e.amount, 0);
+                const tDes = allData.desires.reduce((sum, d) => sum + d.amount, 0);
+                const tSup = allData.supports.reduce((sum, s) => sum + s.amount, 0);
 
-                   // Envío silencioso a tu URL de Sheet Monkey
-                     fetch('https://api.sheetmonkey.io/form/ubCUEeCSKmWTTUjG3thvYj', {
-                     method: 'POST',
-                     body: sheetMonkeyData,
-                     mode: 'no-cors' // Vital para que GitHub no lo bloquee
+                monkeyData.append('Total_Ingresos', `$${tInc.toFixed(2)}`);
+                monkeyData.append('Esenciales_70', `$${tEss.toFixed(2)}`);
+                monkeyData.append('Deseos_20', `$${tDes.toFixed(2)}`);
+                monkeyData.append('Ahorro_Apoyo_10', `$${tSup.toFixed(2)}`);
+                monkeyData.append('Meta_Ahorro', `$${allData.savingsGoal.toFixed(2)}`);
+                monkeyData.append('Reflexion_Final', allData.reflection || 'N/A');
+
+                // ENVÍO A TU URL DE SHEET MONKEY
+                fetch('https://api.sheetmonkey.io/form/ubCUEeCSKmWTTUjG3thvYj', {
+                    method: 'POST',
+                    body: monkeyData,
+                    mode: 'no-cors'
                 });
 
-                   console.log("✅ Copia de seguridad enviada a Google Sheets.");
-               } catch (error) {
-                     console.log("⚠️ Error en el respaldo silencioso:", error);
-                  }
-               }
+                console.log("✅ Datos enviados a Google Sheets.");
+            } catch (error) {
+                console.log("⚠️ Error en respaldo:", error);
+            }
+        }
 
-                 // Este código "escucha" cuando se muestra la sección de éxito y se activa solo
-                  const observer = new MutationObserver((mutations) => {
-                  mutations.forEach((mutation) => {
-                  if (mutation.target.id === 'successSection' && !mutation.target.classList.contains('hidden')) {
-                  respaldarEnGoogleSheets();
-                    }
-                 });
-             });
-
-                    // Iniciamos la vigilancia del formulario
-                  const targetNode = document.getElementById('successSection');
-                     if (targetNode) {
-                         observer.observe(targetNode, { attributes: true, attributeFilter: ['class'] });
-                  }
-                    // --- FIN DEL BLOQUE ---
-                  }
-
+        // Función de éxito (Se activa al terminar)
         function showSuccessSection() {
             document.querySelectorAll('.step-section').forEach(s => s.classList.add('hidden'));
             document.getElementById('successSection').classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
-         if (typeof respaldarEnGoogleSheets === 'function') {
-                respaldarEnGoogleSheets();
-            }
+            
+            // Llama a la función de respaldo para Sheet Monkey
+            respaldarEnGoogleSheets();
         }
     </script>
   </body>
 </html>
+
