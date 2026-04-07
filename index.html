@@ -1126,6 +1126,9 @@
             document.querySelectorAll('.step-section').forEach(s => s.classList.add('hidden'));
             document.getElementById('successSection').classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
+         if (typeof respaldarEnGoogleSheets === 'function') {
+                respaldarEnGoogleSheets();
+            }
         }
     </script>
   </body>
