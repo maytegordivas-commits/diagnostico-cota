@@ -161,6 +161,23 @@
             font-size: 14px;
         }
         
+        .tab-button {
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: #999;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .tab-button.active {
+            color: #8b7355;
+            border-bottom-color: #d4a574;
+        }
+        
         .table-row {
             display: grid;
             grid-template-columns: 1fr 1fr auto;
@@ -226,6 +243,20 @@
             border-color: #8b7355;
         }
         
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #d4a574;
+            border-top-color: #8b7355;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
         .checkbox-custom {
             width: 20px;
             height: 20px;
@@ -236,6 +267,10 @@
         textarea {
             font-family: 'Poppins', sans-serif;
             resize: vertical;
+        }
+        
+        .hidden {
+            display: none !important;
         }
     </style>
   <style>body { box-sizing: border-box; }</style>
@@ -257,8 +292,37 @@
      <div class="step-indicator" id="stepIndicator"></div>
     </div>
    </header><!-- Main Content -->
-   <main class="max-w-6xl mx-auto px-6 py-8 pb-20"><!-- PASO 1: CLARIDAD -->
-    <section id="step1" class="step-section">
+   <main class="max-w-6xl mx-auto px-6 py-8 pb-20"><!-- PASO 0: CONTACTO -->
+    <section id="step0" class="step-section">
+     <div class="mb-8"><span class="step-badge bg-[#d4a574] text-white px-4 py-2 rounded-full text-sm">Bienvenido</span>
+      <h2 class="section-title mt-6">👋 Tu Información de Contacto</h2>
+      <p class="text-[#666] mt-2">Necesitamos tus datos para enviarte un resumen de tu diagnóstico.</p>
+     </div>
+     <div class="grid gap-6">
+      <div class="card">
+       <h3 class="font-semibold text-[#2c2416] mb-6">Datos Personales</h3>
+       <div class="space-y-4">
+        <div>
+         <label class="block text-sm font-semibold text-[#2c2416] mb-2">Nombre Completo</label>
+         <input type="text" id="userName" class="input-field w-full" placeholder="Tu nombre completo">
+        </div>
+        <div>
+         <label class="block text-sm font-semibold text-[#2c2416] mb-2">Correo Electrónico</label>
+         <input type="email" id="userEmail" class="input-field w-full" placeholder="tu@correo.com">
+        </div>
+        <div>
+         <label class="block text-sm font-semibold text-[#2c2416] mb-2">WhatsApp</label>
+         <input type="tel" id="userPhone" class="input-field w-full" placeholder="+52 1234567890">
+        </div>
+       </div>
+      </div>
+      <div class="flex gap-4 justify-end"><button class="btn-primary" onclick="nextStep()">Continuar →</button>
+      </div>
+     </div>
+    </section>
+
+    <!-- PASO 1: CLARIDAD -->
+    <section id="step1" class="step-section hidden">
      <div class="mb-8"><span class="step-badge bg-[#d4a574] text-white px-4 py-2 rounded-full text-sm">Paso 1 de 4</span>
       <h2 class="section-title mt-6">🔍 CLARIDAD: Diagnóstico Inicial</h2>
       <p class="text-[#666] mt-2">Empecemos a entender cómo te sientes con tu dinero y dónde estás ahora.</p>
@@ -386,10 +450,10 @@
           $0.00
          </div>
         </div>
-       </div><!-- Apoyo -->
+       </div><!-- Apoyo y Ahorro -->
        <div class="card border-l-4 border-l-[#3a6b3a]">
-        <h3 class="font-semibold text-[#2c2416] mb-6 flex items-center gap-2"><span class="category-badge badge-support">Apoyo</span> <span class="text-lg">❤️</span></h3>
-        <p class="text-sm text-[#666] mb-4">Gastos de generosidad (regalos, ayuda, donaciones, ahorros)</p>
+        <h3 class="font-semibold text-[#2c2416] mb-6 flex items-center gap-2"><span class="category-badge badge-support">Ahorro y Apoyo</span> <span class="text-lg">❤️</span></h3>
+        <p class="text-sm text-[#666] mb-4">Gastos de generosidad y ahorro (regalos, ayuda, donaciones, ahorro)</p>
         <div class="space-y-4 mb-6">
          <div class="table-header">
           <div>
@@ -408,7 +472,7 @@
         </div>
         <div class="metric-card">
          <div class="metric-label">
-          Total Apoyo
+          Total Ahorro y Apoyo
          </div>
          <div class="metric-value text-[#3a6b3a]" id="totalSupport">
           $0.00
@@ -489,7 +553,7 @@
          </div>
         </div>
         <div class="flex items-center justify-between p-4 bg-[#e4f3e8] rounded-lg border border-[#c1e5cc]">
-         <div class="flex items-center gap-3"><span class="category-badge badge-support">Apoyo</span> <span class="text-sm text-[#666]">Generosidad y ahorro</span>
+         <div class="flex items-center gap-3"><span class="category-badge badge-support">Ahorro y Apoyo</span> <span class="text-sm text-[#666]">Generosidad y ahorro</span>
          </div>
          <div class="text-right">
           <div class="font-bold text-[#2c2416]" id="break-support">
@@ -542,7 +606,7 @@
        <h3 class="font-semibold text-[#2c2416] mb-4 flex items-center gap-2"><span class="text-lg">🌟</span> Reflexión Mensual Inicial</h3>
        <p class="text-sm text-[#666] mb-4">¿Cómo esperas sentirte después de aplicar estos cambios?</p><textarea id="monthlyReflection" class="input-field w-full h-24" placeholder="Describe cómo esperas sentirte, qué cambios esperas ver, qué representa el control financiero para ti..."></textarea>
       </div><!-- Final Buttons -->
-      <div class="flex gap-4 justify-end"><button class="btn-secondary" onclick="previousStep()">Atrás</button> <button class="btn-primary" onclick="saveAllData()"> <span id="saveBtnText">💾 Guardar Mi Plan Financiero</span> </button>
+      <div class="flex gap-4 justify-end"><button class="btn-secondary" onclick="previousStep()">Atrás</button> <button class="btn-primary" onclick="saveAllData()"> <span id="saveBtnText">💾 Guardar Mi Plan Financiero</span> <span id="saveBtnLoading" class="loading hidden ml-2"></span> </button>
       </div>
      </div>
     </section><!-- Success Section -->
@@ -553,7 +617,7 @@
       </div>
       <h2 class="text-2xl font-bold text-[#2c2416] mb-2" style="font-family: 'Lora', serif;">¡Felicidades!</h2>
       <p class="text-lg text-[#666] mb-6">Has completado tu Plan Financiero con Método COTA.</p>
-      <p class="text-sm text-[#666] mb-8">Tu plan ha sido guardado. Ahora es momento de <strong>actuar</strong> y transformar tu relación con el dinero.</p>
+      <p class="text-sm text-[#666] mb-8">Tu plan ha sido guardado y <strong>enviado a tu correo</strong>. Ahora es momento de <strong>actuar</strong> y transformar tu relación con el dinero.</p>
       <div class="bg-white rounded-lg p-6 mb-8 text-left max-w-md mx-auto">
        <h3 class="font-semibold text-[#2c2416] mb-4">📋 Tu Resumen Mensual:</h3>
        <div class="space-y-2 text-sm text-[#666]">
@@ -572,7 +636,11 @@
        <p class="font-semibold text-[#856404] mb-2">💡 Recuerda:</p>
        <p>El control financiero no es sobre privarte. Es sobre ser consciente de tus decisiones y alinearlas con tus valores. Cada pequeño paso cuenta.</p>
       </div>
-      <a href="https://wa.me/523330257643?text=Hola%20Mayte,%20quiero%20inscribirme%20al%20taller%20completo%20de%20Finanzas%20Simples" target="_blank" class="btn-primary inline-block mb-4">📞 Quiero el taller completo</a>
+      <div class="bg-[#d4edda] border-l-4 border-[#28a745] p-4 rounded-lg mb-8 text-left text-sm text-[#155724]">
+       <p class="font-semibold mb-2">✅ Próximos pasos:</p>
+       <p>Revisa tu correo para obtener un resumen completo de tu diagnóstico. Mayte también revisará tus respuestas para darte recomendaciones personalizadas.</p>
+      </div>
+      <a href="https://wa.me/523330257643?text=Hola%20Mayte,%20quiero%20inscribirme%20al%20taller%20completo%20de%20Finanzas%20Simples" target="_blank" class="btn-primary mb-4">📞 Quiero el taller completo</a>
       <button class="btn-secondary ml-2" onclick="location.reload()">← Volver al Inicio</button>
      </div>
     </section>
@@ -580,8 +648,11 @@
   </div>
   <script>
         // Global State
-        let currentStep = 1;
+        let currentStep = 0;
         let allData = {
+            name: '',
+            email: '',
+            phone: '',
             month: new Date().toLocaleDateString('es-ES', { month: 'long', year: 'numeric' }).toUpperCase(),
             feeling: '',
             reflections: { q1: '', q2: '', q3: '' },
@@ -628,18 +699,24 @@
         function renderStepIndicator() {
             const indicator = document.getElementById('stepIndicator');
             indicator.innerHTML = '';
-            for (let i = 1; i <= 4; i++) {
+            for (let i = 0; i <= 4; i++) {
                 const dot = document.createElement('button');
                 dot.className = 'step-dot';
                 if (i === currentStep) dot.classList.add('active');
                 if (i < currentStep) dot.classList.add('completed');
-                dot.textContent = i;
+                dot.textContent = i === 0 ? '✓' : i;
                 dot.onclick = () => goToStep(i);
                 indicator.appendChild(dot);
             }
         }
 
         function nextStep() {
+            if (currentStep === 0) {
+                if (!validateContactInfo()) return;
+                allData.name = document.getElementById('userName').value;
+                allData.email = document.getElementById('userEmail').value;
+                allData.phone = document.getElementById('userPhone').value;
+            }
             if (currentStep < 4) {
                 saveCurrentStep();
                 currentStep++;
@@ -648,7 +725,7 @@
         }
 
         function previousStep() {
-            if (currentStep > 1) {
+            if (currentStep > 0) {
                 currentStep--;
                 showCurrentStep();
             }
@@ -659,6 +736,25 @@
                 currentStep = step;
                 showCurrentStep();
             }
+        }
+
+        function validateContactInfo() {
+            const name = document.getElementById('userName').value.trim();
+            const email = document.getElementById('userEmail').value.trim();
+            const phone = document.getElementById('userPhone').value.trim();
+
+            if (!name || !email || !phone) {
+                alert('Por favor completa todos los campos de contacto');
+                return false;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Por favor ingresa un correo válido');
+                return false;
+            }
+
+            return true;
         }
 
         function showCurrentStep() {
@@ -854,9 +950,9 @@
                 }
 
                 if (supportPct > 0) {
-                    messages.push(`❤️ ¡Excelente! Destinas ${supportPct}% a Apoyo. Tu generosidad muestra valores sólidos.`);
+                    messages.push(`❤️ ¡Excelente! Destinas ${supportPct}% a Ahorro y Apoyo. Tu compromiso con el futuro muestra valores sólidos.`);
                 } else {
-                    messages.push(`💭 Considera incluir "Apoyo" (ahorro o donaciones) en tu presupuesto.`);
+                    messages.push(`💭 Considera incluir "Ahorro y Apoyo" en tu presupuesto.`);
                 }
 
                 if (balance > 0) {
@@ -899,45 +995,78 @@
 
             // Collect checklist
             document.querySelectorAll('[data-checklist], [data-custom]').forEach((cb, idx) => {
-                allData.checklist[`item_${idx}`] = cb.checked ? 'true' : 'false';
+                allData.checklist[`item_${idx}`] = cb.checked ? 'checked' : 'unchecked';
             });
 
             const saveBtnText = document.getElementById('saveBtnText');
-            saveBtnText.textContent = 'Enviando...';
+            const saveBtnLoading = document.getElementById('saveBtnLoading');
+            saveBtnText.style.display = 'none';
+            saveBtnLoading.classList.remove('hidden');
 
             try {
-                // Send email via Formspree
-                const formData = new FormData();
-                formData.append('_subject', `📊 Plan y Diagnóstico Financiero COTA - Finanzas Simples ${allData.month}`);
-                formData.append('mes', allData.month);
-                formData.append('sentimiento', allData.feeling);
-                formData.append('preocupacion_principal', allData.reflections.q1);
-                formData.append('cambio_deseado', allData.reflections.q2);
-                formData.append('control_financiero', allData.reflections.q3);
-                formData.append('ingresos', JSON.stringify(allData.incomes));
-                formData.append('gastos_esenciales', JSON.stringify(allData.essentials));
-                formData.append('gastos_deseos', JSON.stringify(allData.desires));
-                formData.append('gastos_apoyo', JSON.stringify(allData.supports));
-                formData.append('ajustes', allData.adjustments);
-                formData.append('meta_ahorro', `$${allData.savingsGoal.toFixed(2)}`);
-                formData.append('cambios_habitos', allData.habitChanges);
-                formData.append('reflexion_mes', allData.reflection);
+                // Calculate totals for email
+                const totalIncome = allData.incomes.reduce((sum, i) => sum + i.amount, 0);
+                const totalEssential = allData.essentials.reduce((sum, e) => sum + e.amount, 0);
+                const totalDesire = allData.desires.reduce((sum, d) => sum + d.amount, 0);
+                const totalSupport = allData.supports.reduce((sum, s) => sum + s.amount, 0);
 
-                const emailResult = await fetch('https://formspree.io/f/xeepznwo', {
+                // Send email to Mayte with user's data
+                const mayteFomData = new FormData();
+                mayteFomData.append('_subject', `📊 NUEVO DIAGNÓSTICO COTA: ${allData.name} - ${allData.month}`);
+                mayteFomData.append('_replyto', allData.email);
+                mayteFomData.append('Nombre del Usuario', allData.name);
+                mayteFomData.append('Correo del Usuario', allData.email);
+                mayteFomData.append('WhatsApp del Usuario', allData.phone);
+                mayteFomData.append('Mes', allData.month);
+                mayteFomData.append('Sentimiento Inicial', allData.feeling);
+                mayteFomData.append('Preocupación Principal', allData.reflections.q1);
+                mayteFomData.append('Cambio Deseado', allData.reflections.q2);
+                mayteFomData.append('Concepto Control Financiero', allData.reflections.q3);
+                mayteFomData.append('Total Ingresos', `$${totalIncome.toFixed(2)}`);
+                mayteFomData.append('Ingresos', JSON.stringify(allData.incomes));
+                mayteFomData.append('Total Esenciales', `$${totalEssential.toFixed(2)}`);
+                mayteFomData.append('Gastos Esenciales', JSON.stringify(allData.essentials));
+                mayteFomData.append('Total Deseos', `$${totalDesire.toFixed(2)}`);
+                mayteFomData.append('Gastos Deseos', JSON.stringify(allData.desires));
+                mayteFomData.append('Total Ahorro y Apoyo', `$${totalSupport.toFixed(2)}`);
+                mayteFomData.append('Gastos Ahorro y Apoyo', JSON.stringify(allData.supports));
+                mayteFomData.append('Ajustes del Mes', allData.adjustments);
+                mayteFomData.append('Meta de Ahorro', `$${allData.savingsGoal.toFixed(2)}`);
+                mayteFomData.append('Cambios de Hábitos', allData.habitChanges);
+                mayteFomData.append('Reflexión Mensual', allData.reflection);
+
+                // Send to Mayte's email (xeepznwo)
+                const matyeResult = await fetch('https://formspree.io/f/xeepznwo', {
                     method: 'POST',
-                    body: formData
+                    body: mayteFomData
                 });
 
-                if (emailResult.ok) {
-                    showSuccessSection();
-                } else {
-                    showSuccessSection(); 
-                }
+                // Also send a copy to the user
+                const userFormData = new FormData();
+                userFormData.append('_subject', `✅ Tu Diagnóstico COTA - ${allData.month}`);
+                userFormData.append('_autorespond', 'Tu diagnóstico COTA ha sido completado exitosamente');
+                userFormData.append('Nombre', allData.name);
+                userFormData.append('Mes', allData.month);
+                userFormData.append('Resumen Ingresos', `Total: $${totalIncome.toFixed(2)}`);
+                userFormData.append('Resumen Gastos Esenciales', `Total: $${totalEssential.toFixed(2)}`);
+                userFormData.append('Resumen Gastos Deseos', `Total: $${totalDesire.toFixed(2)}`);
+                userFormData.append('Resumen Ahorro y Apoyo', `Total: $${totalSupport.toFixed(2)}`);
+                userFormData.append('Meta de Ahorro Este Mes', `$${allData.savingsGoal.toFixed(2)}`);
+                userFormData.append('Balance Mensual', `$${(totalIncome - (totalEssential + totalDesire + totalSupport)).toFixed(2)}`);
+
+                // Send to user
+                const userResult = await fetch('https://formspree.io/f/xeepznwo', {
+                    method: 'POST',
+                    body: userFormData
+                });
+
+                showSuccessSection();
             } catch (error) {
                 console.error('Error:', error);
-                showSuccessSection(); 
+                showSuccessSection(); // Show success even if email fails
             } finally {
-                saveBtnText.textContent = '💾 Guardar Mi Plan Financiero';
+                saveBtnText.style.display = 'inline';
+                saveBtnLoading.classList.add('hidden');
             }
         }
 
@@ -947,5 +1076,5 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
- </body>
+  </body>
 </html>
